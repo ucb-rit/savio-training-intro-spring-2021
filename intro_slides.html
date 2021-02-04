@@ -88,13 +88,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <p class="author">
 February 10, 2020
   </p>
-  <p class="date">James Duncan and Chris Paciorek</p>
+  <p class="date">Clint Hamilton, James Duncan and Chris Paciorek</p>
 </div>
 <div id="introduction" class="slide section level1">
 <h1>Introduction</h1>
 <p>We’ll do this mostly as a demonstration. We encourage you to login to your account and try out the various examples yourself as we go through them.</p>
-<p>Much of this material is based on the extensive Savio documention we have prepared and continue to prepare, available at <a href="http://research-it.berkeley.edu/services/high-performance-computing">http://research-it.berkeley.edu/services/high-performance-computing</a>.</p>
-<p>The materials for this tutorial are available using git at the short URL (<a href="https://tinyurl.com/brc-feb20">https://tinyurl.com/brc-feb20</a>), the GitHub URL (<a href="https://github.com/ucb-rit/savio-training-intro-spring-2020">https://github.com/ucb-rit/savio-training-intro-spring-2020</a>), or simply as a <a href="https://github.com/ucb-rit/savio-training-intro-spring-2020/archive/master.zip">zip file</a>.</p>
+<p>Much of this material is based on the extensive Savio documention we have prepared and continue to prepare, available at <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/">https://docs-research-it.berkeley.edu/services/high-performance-computing/</a>.</p>
+<p>The materials for this tutorial are available using git at the short URL (<a href="https://tinyurl.com/brc-feb21">tinyurl.com/brc-feb21</a>), the GitHub URL (<a href="https://github.com/ucb-rit/savio-training-intro-spring-2021">https://github.com/ucb-rit/savio-training-intro-spring-2021</a>), or simply as a <a href="https://github.com/ucb-rit/savio-training-intro-spring-2021/archive/main.zip">zip file</a>.</p>
 </div>
 <div id="outline" class="slide section level1">
 <h1>Outline</h1>
@@ -130,7 +130,7 @@ February 10, 2020
 </ul></li>
 <li>Basic use of standard software: Python and R
 <ul>
-<li>Jupyter notebooks</li>
+<li>Jupyter notebooks using OOD</li>
 <li>Parallelization in Python with ipyparallel</li>
 <li>Parallelization in R with foreach</li>
 <li>Dask for parallelization in Python</li>
@@ -155,9 +155,9 @@ February 10, 2020
 <div id="getting-access-to-the-system---fca-and-condo" class="slide section level1">
 <h1>Getting access to the system - FCA and condo</h1>
 <ul>
-<li>All regular Berkeley faculty can request 300,000 service units (roughly core-hours) per year through the <a href="http://research-it.berkeley.edu/services/high-performance-computing/faculty-computing-allowance">Faculty Computing Allowance (FCA)</a></li>
-<li>Researchers can also purchase nodes for their own priority access and gain access to the shared Savio infrastructure and to the ability to <em>burst</em> to additional nodes through the <a href="http://research-it.berkeley.edu/services/high-performance-computing/condo-cluster-program">condo cluster program</a></li>
-<li>Instructors can request an <a href="http://research-it.berkeley.edu/programs/berkeley-research-computing/instructional-computing-allowance">Instructional Computing Allowance (ICA)</a>.</li>
+<li>All regular Berkeley faculty can request 300,000 service units (roughly core-hours) per year through the <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/getting-account/faculty-computing-allowance/">Faculty Computing Allowance (FCA)</a></li>
+<li>Researchers can also purchase nodes for their own priority access and gain access to the shared Savio infrastructure and to the ability to <em>burst</em> to additional nodes through the <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/condos/condo-cluster-service/">condo cluster program</a></li>
+<li>Instructors can request an <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/getting-account/instructional-computing-allowance/">Instructional Computing Allowance (ICA)</a>.</li>
 </ul>
 <p>Faculty/principal investigators can allow researchers working with them to get user accounts with access to the FCA or condo resources available to the faculty member.</p>
 </div>
@@ -191,12 +191,12 @@ February 10, 2020
 </div>
 <div id="savio-computing-nodes" class="slide section level1">
 <h1>Savio computing nodes</h1>
-<p>Let’s take a look at the hardware specifications of the computing nodes on the cluster <a href="http://research-it.berkeley.edu/services/high-performance-computing/user-guide/savio-user-guide">(see the <em>Hardware Configuration</em> section of this document)</a>.</p>
-<p>The nodes are divided into several pools, called partitions. These partitions have different restrictions and costs associated with them (<a href="http://research-it.berkeley.edu/services/high-performance-computing/user-guide/savio-user-guide">see the <em>Scheduler Configuration</em> section of this document</a> and <a href="http://research-it.berkeley.edu/services/high-performance-computing/service-units-savio#Scaling">the associated costs in Service Units</a>). Any job you submit must be submitted to a partition to which you have access.</p>
+<p>Let’s take a look at the hardware specifications of the computing nodes on the cluster <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/hardware-config/">(see the <em>Hardware Configuration</em> page)</a>.</p>
+<p>The nodes are divided into several pools, called partitions. These partitions have different restrictions and costs associated with them (<a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/scheduler-config/">see the <em>Scheduler Configuration</em> page</a> and <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/service-units-savio/">the associated costs in Service Units</a>). Any job you submit must be submitted to a partition to which you have access.</p>
 </div>
 <div id="disk-space-options-home-scratch-group-condo-storage" class="slide section level1">
 <h1>Disk space options (home, scratch, group, condo storage)</h1>
-<p>You have access to the following disk space, described <a href="http://research-it.berkeley.edu/services/high-performance-computing/user-guide/savio-user-guide">here in the <em>Storage and Backup</em> section</a>.</p>
+<p>You have access to the following disk space, described <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/storing-data/">here in the <em>Storing Data</em> page</a>.</p>
 <p>Those directories:</p>
 <ul>
 <li><code>/global/home/users/SAVIO_USERNAME</code></li>
@@ -205,7 +205,7 @@ February 10, 2020
 </ul>
 <p>are available from any of the nodes and changes to files on one node will be seen on all the other nodes.</p>
 <p>When reading/writing data to/from disk, unless the amount of data is small, please put the data in your scratch space at <code>/global/scratch/SAVIO_USERNAME</code>. The system is set up so that disk access for all users is optimized when users are doing input/output (I/O) off of scratch rather than off of their home directories. Doing I/O with files on your home directory can impact the ability of others to access their files on the filesystem.</p>
-<p>Large amounts of disk space is available for purchase from the <a href="http://research-it.berkeley.edu/services/high-performance-computing/brc-condo-storage-service-savio"><em>condo storage</em> offering</a>. The minimum purchase is about $5,840, which provides roughly 42 TB for five years.</p>
+<p>Large amounts of disk space is available for purchase from the <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/condos/condo-storage-service/"><em>condo storage</em> offering</a>. The minimum purchase is about $5,840, which provides roughly 42 TB for five years.</p>
 </div>
 <div id="sensitive-data-on-savio" class="slide section level1">
 <h1>Sensitive Data on Savio</h1>
@@ -218,7 +218,7 @@ February 10, 2020
 <h1>Logging in</h1>
 <p>To login, you need to have software on your own machine that gives you access to a UNIX terminal (command-line) session. These come built-in with Mac (see <code>Applications -&gt; Utilities -&gt; Terminal</code>). For Windows, a good option is <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">PuTTY</a>.</p>
 <p>You also need to set up your smartphone or tablet with <em>Google Authenticator</em> to generate one-time passwords for you.</p>
-<p>Here are instructions for <a href="http://research-it.berkeley.edu/services/high-performance-computing/logging-savio">doing this setup, and for logging in</a>.</p>
+<p>Here are instructions for <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/logging-brc-clusters/">doing this setup, and for logging in</a>.</p>
 <p>Then to login:</p>
 <pre><code>ssh SAVIO_USERNAME@hpc.brc.berkeley.edu</code></pre>
 <p>Then enter XXXXXYYYYYY where XXXXXX is your PIN and YYYYYY is the one-time password. YYYYYY will be shown when you open your <em>Google authenticator</em> app on your phone/tablet.</p>
@@ -257,7 +257,7 @@ tar -xvzf files.tgz</code></pre>
 </div>
 <div id="data-transfer-globus" class="slide section level1">
 <h1>Data transfer: Globus</h1>
-<p>You can use Globus Connect to transfer data data to/from Savio (and between other resources) quickly and unattended. This is a better choice for large transfers. Here are some <a href="http://research-it.berkeley.edu/services/high-performance-computing/using-globus-connect-savio">instructions</a>.</p>
+<p>You can use Globus Connect to transfer data data to/from Savio (and between other resources) quickly and unattended. This is a better choice for large transfers. Here are some <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/transferring-data/using-globus-connect-savio/">instructions</a>.</p>
 <p>Globus transfers data between <em>endpoints</em>. Possible endpoints include: Savio, your laptop or desktop, NERSC, and XSEDE, among others.</p>
 <p>Savio’s endpoint is named <code>ucb#brc</code>.</p>
 <p>If you are transferring to/from your laptop, you’ll need</p>
@@ -284,7 +284,7 @@ tar -xvzf files.tgz</code></pre>
 </div>
 <div id="data-transfer-box-bdrive-with-rclone" class="slide section level1">
 <h1>Data transfer: Box &amp; bDrive with rclone</h1>
-<p><a href="https://rclone.org/">rclone</a> is a command line program that you can use to sync files between both services and Savio. You can read instructions for using rclone on Savio <a href="http://research-it.berkeley.edu/services/high-performance-computing/transferring-data-between-savio-and-your-uc-berkeley-box-0">with Box here</a> and <a href="http://research-it.berkeley.edu/services/research-data-management-service/take-advantage-unlimited-bdrive-and-box-storage-using">with bDrive here</a>.</p>
+<p><a href="https://rclone.org/">rclone</a> is a command line program that you can use to sync files between both services and Savio. You can read instructions for using rclone on Savio <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/transferring-data/rclone-box-bdrive/">with Box or bDrive here</a>.</p>
 <p>Briefly the steps to set up rclone on Savio to interact with Box are as follows.</p>
 <p>Configuration (on dtn): <code>rclone config</code></p>
 <ul>
@@ -438,7 +438,7 @@ wwall -j &lt;JOB_ID&gt;</code></pre>
 <li>openMP/threaded jobs that use <em>c</em> CPUs (on one node) for <em>one</em> task</li>
 <li>hybrid MPI+threaded jobs that use <em>c</em> CPUs for each of <em>n</em> tasks</li>
 </ul>
-<p>There are lots more examples of job submission scripts for different kinds of parallelization (multi-node (MPI), multi-core (openMP), hybrid, etc.) <a href="http://research-it.berkeley.edu/services/high-performance-computing/running-your-jobs#Job-submission-with-specific-resource-requirements">here</a>.</p>
+<p>There are lots more examples of job submission scripts for different kinds of parallelization (multi-node (MPI), multi-core (openMP), hybrid, etc.) <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/scheduler-examples/">here</a>.</p>
 </div>
 <div id="interactive-jobs" class="slide section level1">
 <h1>Interactive jobs</h1>
@@ -453,12 +453,12 @@ matlab -nodesktop -nodisplay</code></pre>
 </div>
 <div id="running-graphical-interfaces-interactively-on-the-visualization-node" class="slide section level1">
 <h1>Running graphical interfaces interactively on the visualization node</h1>
-<p>If you are running a graphical interface, we recommend you use Savio’s remote desktop service on our visualization node, as described <a href="http://research-it.berkeley.edu/services/high-performance-computing/using-brc-visualization-node-realvnc">here</a>.</p>
+<p>If you are running a graphical interface, we recommend you use Savio’s remote desktop service on our visualization node, as described <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/using-brc-visualization-node-realvnc/">here</a>.</p>
 </div>
 <div id="low-priority-queue" class="slide section level1">
 <h1>Low-priority queue</h1>
 <p>Condo users have access to the broader compute resource that is limited only by the size of partitions, under the <em>savio_lowprio</em> QoS (queue). However this QoS does not get a priority as high as the general QoSs, such as <em>savio_normal</em> and <em>savio_debug</em>, or all the condo QoSs, and it is subject to preemption when all the other QoSs become busy.</p>
-<p>More details can be found <a href="http://research-it.berkeley.edu/services/high-performance-computing/user-guide/savio-user-guide#Low_Priority">in the <em>Low Priority Jobs</em> section of the user guide</a>.</p>
+<p>More details can be found <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/submitting-jobs/#low-priority">in the <em>Low Priority Jobs</em> section of the user guide</a>.</p>
 <p>Suppose I wanted to burst beyond the Statistics condo to run on 20 nodes. I’ll illustrate here with an interactive job though usually this would be for a batch job.</p>
 <p>First I’ll see if there are that many nodes even available.</p>
 <pre><code>sinfo -p savio2
@@ -482,7 +482,7 @@ top</code></pre>
 <p>You may have many serial jobs to run. It may be more cost-effective to collect those jobs together and run them across multiple cores on one or more nodes.</p>
 <p>Here are some options:</p>
 <ul>
-<li>using <a href="http://research-it.berkeley.edu/services/high-performance-computing/user-guide/hthelper-script">Savio’s HT Helper tool</a> to run many computational tasks (e.g., thousands of simulations, scanning tens of thousands of parameter values, etc.) as part of single Savio job submission</li>
+<li>using <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/hthelper-script/">Savio’s HT Helper tool</a> to run many computational tasks (e.g., thousands of simulations, scanning tens of thousands of parameter values, etc.) as part of single Savio job submission</li>
 <li>using <a href="https://github.com/berkeley-scf/tutorial-parallel-basics">single-node parallelism</a> and <a href="https://github.com/berkeley-scf/tutorial-parallel-distributed">multiple-node parallelism</a> in Python, R, and MATLAB
 <ul>
 <li>parallel R tools such as <em>future</em>, <em>foreach</em>, <em>parLapply</em>, and <em>mclapply</em></li>
@@ -504,22 +504,23 @@ sinfo -p savio2_gpu</code></pre>
 <pre><code>scancel YOUR_JOB_ID</code></pre>
 <p>For more information on cores, QoS, and additional (e.g., GPU) resources, here’s some syntax:</p>
 <pre><code>squeue -o &quot;%.7i %.12P %.20j %.8u %.2t %.9M %.5C %.8r %.3D %.20R %.8p %.20q %b&quot; </code></pre>
-<p>We provide some <a href="http://research-it.berkeley.edu/services/high-performance-computing/running-your-jobs#Monitoring">tips about monitoring your jobs</a>.</p>
+<p>We provide some <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/monitoring-jobs/">tips about monitoring your jobs</a>.</p>
 <p>If you’d like to see how much of an FCA has been used:</p>
 <pre><code>check_usage.sh -a fc_cuore</code></pre>
 </div>
-<div id="example-use-of-standard-software-ipython-and-r-notebooks-through-jupyterhub" class="slide section level1">
-<h1>Example use of standard software: IPython and R notebooks through JupyterHub</h1>
-<p>Savio allows one to <a href="http://research-it.berkeley.edu/services/high-performance-computing/using-jupyter-notebooks-and-jupyterhub-savio">run Jupyter-based notebooks via a browser-based service called Jupyterhub</a>.</p>
-<p>Let’s see a brief demo of an IPython notebook:</p>
+<div id="example-use-of-standard-software-jupyter-notebooks-through-open-ondemand-ood" class="slide section level1">
+<h1>Example use of standard software: Jupyter Notebooks through Open OnDemand (OOD)</h1>
+<p>Savio now has an Open OnDemand portal, allowing users to launch Jupyter notebooks and RStudio servers for interactive debugging and batch computing. (Note: this supersedes the JupyterHub instance on Savio, which will soon become inactive).</p>
+<p>Let’s see a brief demo of a Jupyter notebook:</p>
 <ul>
-<li>Connect to https://jupyter.brc.berkeley.edu</li>
+<li>Connect to https://ood.brc.berkeley.edu/</li>
 <li>Login as usual with a one-time password</li>
-<li>Select how to run your notebook (on our stand-alone Jupyter node (<code>Local server</code>) or in the <code>savio2_htc</code>, <code>savio</code> or <code>savio2</code> partitions)</li>
+<li>Click on the “Interactive Apps” drop-down menu and select how to run your notebook (either “compute in batch queues” or “non-batch for exploration, debugging”)</li>
+<li>Specify your “SLURM Project/Account Name”</li>
 <li>Start up a notebook</li>
 </ul>
-<p>HOWEVER, the Jupyterhub service sometimes doesn’t interact well with the SLURM scheduler causing your notebook not to start and no helpful error messages to be produced. Instead, one can <a href="http://research-it.berkeley.edu/services/high-performance-computing/using-jupyter-notebooks-and-jupyterhub-savio">run a Jupyter notebook through the visualization node</a> (see the material at the bottom of the webpage).</p>
-<p>You can also run <a href="http://research-it.berkeley.edu/services/high-performance-computing/using-jupyter-notebooks-and-jupyterhub-savio/parallelization">parallel computations via an IPython notebook</a>.</p>
+<p>Alternatively, one can <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/using-jupyter-notebooks-and-jupyterhub-savio/#viz">run a Jupyter notebook through the visualization node</a>.</p>
+<p>You can also run <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/using-jupyter-notebooks-and-jupyterhub-savio/parallelization/">parallel computations via an IPython notebook</a>.</p>
 </div>
 <div id="example-use-of-standard-software-python" class="slide section level1">
 <h1>Example use of standard software: Python</h1>
@@ -607,7 +608,7 @@ parallel_result</code></pre>
 <p>Now here’s the R code (see <em>parallel-multi.R</em>) we’re running:</p>
 <pre><code>library(doMPI)
 
-cl = startMPIcluster()  # by default will start one fewer slave, using one for master
+cl = startMPIcluster()  # by default will start one fewer worker, using one for the main
 registerDoMPI(cl)
 clusterSize(cl) # just to check
 
@@ -696,7 +697,7 @@ results</code></pre>
 <div id="upcoming-events-and-hiring" class="slide section level1">
 <h1>Upcoming events and hiring</h1>
 <ul>
-<li><p>Lots of other events at Berkeley this week during <a href="https://guides.lib.berkeley.edu/ldw2020">Love Data Week</a>.</p></li>
+<li><p>Lots of other events at Berkeley this week during <a href="https://researchdata.berkeley.edu/events/love-data-week-2021">Love Data Week</a>.</p></li>
 <li><p>We’re planning a training on basic principles of and use of parallelization on Savio and similar systems for sometime in April.</p></li>
 <li><p>Research IT is hiring graduate students as domain consultants. See flyers or talk to one of us.</p></li>
 </ul>

@@ -1,15 +1,15 @@
 % Savio introductory training: Basic usage of the Berkeley Savio high-performance computing cluster
 % February 10, 2020
-% James Duncan and Chris Paciorek
+% Clint Hamilton, James Duncan and Chris Paciorek
 
 
 # Introduction
 
 We'll do this mostly as a demonstration. We encourage you to login to your account and try out the various examples yourself as we go through them.
 
-Much of this material is based on the extensive Savio documention we have prepared and continue to prepare, available at [http://research-it.berkeley.edu/services/high-performance-computing](http://research-it.berkeley.edu/services/high-performance-computing).
+Much of this material is based on the extensive Savio documention we have prepared and continue to prepare, available at [https://docs-research-it.berkeley.edu/services/high-performance-computing/](https://docs-research-it.berkeley.edu/services/high-performance-computing/).
 
-The materials for this tutorial are available using git at the short URL ([https://tinyurl.com/brc-feb20](https://tinyurl.com/brc-feb20)), the  GitHub URL ([https://github.com/ucb-rit/savio-training-intro-spring-2020](https://github.com/ucb-rit/savio-training-intro-spring-2020)), or simply as a [zip file](https://github.com/ucb-rit/savio-training-intro-spring-2020/archive/master.zip).
+The materials for this tutorial are available using git at the short URL ([tinyurl.com/brc-feb21](https://tinyurl.com/brc-feb21)), the  GitHub URL ([https://github.com/ucb-rit/savio-training-intro-spring-2021](https://github.com/ucb-rit/savio-training-intro-spring-2021)), or simply as a [zip file](https://github.com/ucb-rit/savio-training-intro-spring-2021/archive/main.zip).
 
 # Outline
 
@@ -36,7 +36,7 @@ This training session will cover the following topics:
      - HTC jobs
      - Monitoring jobs and cluster status
  - Basic use of standard software: Python and R
-     - Jupyter notebooks
+     - Jupyter notebooks using OOD
      - Parallelization in Python with ipyparallel
      - Parallelization in R with foreach
      - Dask for parallelization in Python
@@ -54,9 +54,9 @@ This training session will cover the following topics:
 
 # Getting access to the system - FCA and condo
 
-- All regular Berkeley faculty can request 300,000 service units (roughly core-hours) per year through the [Faculty Computing Allowance (FCA)](http://research-it.berkeley.edu/services/high-performance-computing/faculty-computing-allowance)
-- Researchers can also purchase nodes for their own priority access and gain access to the shared Savio infrastructure and to the ability to *burst* to additional nodes through the [condo cluster program](http://research-it.berkeley.edu/services/high-performance-computing/condo-cluster-program)
-- Instructors can request an [Instructional Computing Allowance (ICA)](http://research-it.berkeley.edu/programs/berkeley-research-computing/instructional-computing-allowance). 
+- All regular Berkeley faculty can request 300,000 service units (roughly core-hours) per year through the [Faculty Computing Allowance (FCA)](https://docs-research-it.berkeley.edu/services/high-performance-computing/getting-account/faculty-computing-allowance/)
+- Researchers can also purchase nodes for their own priority access and gain access to the shared Savio infrastructure and to the ability to *burst* to additional nodes through the [condo cluster program](https://docs-research-it.berkeley.edu/services/high-performance-computing/condos/condo-cluster-service/)
+- Instructors can request an [Instructional Computing Allowance (ICA)](https://docs-research-it.berkeley.edu/services/high-performance-computing/getting-account/instructional-computing-allowance/). 
 
 Faculty/principal investigators can allow researchers working with them to get user accounts with access to the FCA or condo resources available to the faculty member.
 
@@ -85,13 +85,13 @@ Savio has a few different kinds of nodes:
 
 # Savio computing nodes
 
-Let's take a look at the hardware specifications of the computing nodes on the cluster [(see the *Hardware Configuration* section of this document)](http://research-it.berkeley.edu/services/high-performance-computing/user-guide/savio-user-guide).
+Let's take a look at the hardware specifications of the computing nodes on the cluster [(see the *Hardware Configuration* page)](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/hardware-config/).
 
-The nodes are divided into several pools, called partitions. These partitions have different restrictions and costs associated with them ([see the *Scheduler Configuration* section of this document](http://research-it.berkeley.edu/services/high-performance-computing/user-guide/savio-user-guide) and [the associated costs in Service Units](http://research-it.berkeley.edu/services/high-performance-computing/service-units-savio#Scaling)). Any job you submit must be submitted to a partition to which you have access.
+The nodes are divided into several pools, called partitions. These partitions have different restrictions and costs associated with them ([see the *Scheduler Configuration* page](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/scheduler-config/) and [the associated costs in Service Units](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/service-units-savio/)). Any job you submit must be submitted to a partition to which you have access.
 
 # Disk space options (home, scratch, group, condo storage)
 
-You have access to the following disk space, described [here in the *Storage and Backup* section](http://research-it.berkeley.edu/services/high-performance-computing/user-guide/savio-user-guide).
+You have access to the following disk space, described [here in the *Storing Data* page](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/storing-data/).
 
 Those directories:
 
@@ -103,7 +103,7 @@ are available from any of the nodes and changes to files on one node will be see
 
 When reading/writing data to/from disk, unless the amount of data is small, please put the data in your scratch space at `/global/scratch/SAVIO_USERNAME`. The system is set up so that disk access for all users is optimized when users are doing input/output (I/O) off of scratch rather than off of their home directories. Doing I/O with files on your home directory can impact the ability of others to access their files on the filesystem. 
 
-Large amounts of disk space is available for purchase from the [*condo storage* offering](http://research-it.berkeley.edu/services/high-performance-computing/brc-condo-storage-service-savio). The minimum purchase is about $5,840, which provides roughly 42 TB for five years.
+Large amounts of disk space is available for purchase from the [*condo storage* offering](https://docs-research-it.berkeley.edu/services/high-performance-computing/condos/condo-storage-service/). The minimum purchase is about $5,840, which provides roughly 42 TB for five years.
 
 
 # Sensitive Data on Savio
@@ -122,7 +122,7 @@ To login, you need to have software on your own machine that gives you access to
 
 You also need to set up your smartphone or tablet with *Google Authenticator* to generate one-time passwords for you.
 
-Here are instructions for [doing this setup, and for logging in](http://research-it.berkeley.edu/services/high-performance-computing/logging-savio).
+Here are instructions for [doing this setup, and for logging in](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/logging-brc-clusters/).
 
 Then to login:
 ```
@@ -186,7 +186,7 @@ tar -xvzf files.tgz
 
 # Data transfer: Globus
 
-You can use Globus Connect to transfer data data to/from Savio (and between other resources) quickly and unattended. This is a better choice for large transfers. Here are some [instructions](http://research-it.berkeley.edu/services/high-performance-computing/using-globus-connect-savio).
+You can use Globus Connect to transfer data data to/from Savio (and between other resources) quickly and unattended. This is a better choice for large transfers. Here are some [instructions](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/transferring-data/using-globus-connect-savio/).
 
 Globus transfers data between *endpoints*. Possible endpoints include: Savio, your laptop or desktop, NERSC, and XSEDE, among others.
 
@@ -220,7 +220,7 @@ BRC is working (long-term) on making Globus available for transfer to/from Box a
 
 # Data transfer: Box & bDrive with rclone
 
-[rclone](https://rclone.org/) is a command line program that you can use to sync files between both services and Savio. You can read instructions for using rclone on Savio [with Box here](http://research-it.berkeley.edu/services/high-performance-computing/transferring-data-between-savio-and-your-uc-berkeley-box-0) and [with bDrive here](http://research-it.berkeley.edu/services/research-data-management-service/take-advantage-unlimited-bdrive-and-box-storage-using).
+[rclone](https://rclone.org/) is a command line program that you can use to sync files between both services and Savio. You can read instructions for using rclone on Savio [with Box or bDrive here](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/transferring-data/rclone-box-bdrive/).
 
 Briefly the steps to set up rclone on Savio to interact with Box are as follows.
 
@@ -425,7 +425,7 @@ Some common paradigms are:
  - openMP/threaded jobs that use *c* CPUs (on one node) for *one* task
  - hybrid MPI+threaded jobs that use *c* CPUs for each of *n* tasks
 
-There are lots more examples of job submission scripts for different kinds of parallelization (multi-node (MPI), multi-core (openMP), hybrid, etc.) [here](http://research-it.berkeley.edu/services/high-performance-computing/running-your-jobs#Job-submission-with-specific-resource-requirements).
+There are lots more examples of job submission scripts for different kinds of parallelization (multi-node (MPI), multi-core (openMP), hybrid, etc.) [here](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/scheduler-examples/).
 
 
 # Interactive jobs
@@ -446,13 +446,13 @@ NOTE: you are charged for the entire node when running interactive jobs (as with
 
 # Running graphical interfaces interactively on the visualization node
 
-If you are running a graphical interface, we recommend you use Savio's remote desktop service on our visualization node, as described [here](http://research-it.berkeley.edu/services/high-performance-computing/using-brc-visualization-node-realvnc).
+If you are running a graphical interface, we recommend you use Savio's remote desktop service on our visualization node, as described [here](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/using-brc-visualization-node-realvnc/).
 
 # Low-priority queue
 
 Condo users have access to the broader compute resource that is limited only by the size of partitions, under the *savio_lowprio* QoS (queue). However this QoS does not get a priority as high as the general QoSs, such as *savio_normal* and *savio_debug*, or all the condo QoSs, and it is subject to preemption when all the other QoSs become busy. 
 
-More details can be found [in the *Low Priority Jobs* section of the user guide](http://research-it.berkeley.edu/services/high-performance-computing/user-guide/savio-user-guide#Low_Priority).
+More details can be found [in the *Low Priority Jobs* section of the user guide](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/submitting-jobs/#low-priority).
 
 Suppose I wanted to burst beyond the Statistics condo to run on 20 nodes. I'll illustrate here with an interactive job though usually this would be for a batch job.
 
@@ -486,7 +486,7 @@ You may have many serial jobs to run. It may be more cost-effective to collect t
 
 Here are some options:
 
-  - using [Savio's HT Helper tool](http://research-it.berkeley.edu/services/high-performance-computing/user-guide/hthelper-script) to run many computational tasks (e.g., thousands of simulations, scanning tens of thousands of parameter values, etc.) as part of single Savio job submission
+  - using [Savio's HT Helper tool](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/hthelper-script/) to run many computational tasks (e.g., thousands of simulations, scanning tens of thousands of parameter values, etc.) as part of single Savio job submission
   - using [single-node parallelism](https://github.com/berkeley-scf/tutorial-parallel-basics) and [multiple-node parallelism](https://github.com/berkeley-scf/tutorial-parallel-distributed) in Python, R, and MATLAB
     - parallel R tools such as *future*, *foreach*, *parLapply*, and *mclapply*
     - parallel Python tools such as  *ipyparallel*, *Dask*, and *ray*
@@ -517,7 +517,7 @@ For more information on cores, QoS, and additional (e.g., GPU) resources, here's
 squeue -o "%.7i %.12P %.20j %.8u %.2t %.9M %.5C %.8r %.3D %.20R %.8p %.20q %b" 
 ```
 
-We provide some [tips about monitoring your jobs](http://research-it.berkeley.edu/services/high-performance-computing/running-your-jobs#Monitoring). 
+We provide some [tips about monitoring your jobs](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/monitoring-jobs/). 
 
 If you'd like to see how much of an FCA has been used:
 
@@ -526,20 +526,21 @@ check_usage.sh -a fc_cuore
 ```
 
 
-# Example use of standard software: IPython and R notebooks through JupyterHub
+# Example use of standard software: Jupyter Notebooks through Open OnDemand (OOD)
 
-Savio allows one to [run Jupyter-based notebooks via a browser-based service called Jupyterhub](http://research-it.berkeley.edu/services/high-performance-computing/using-jupyter-notebooks-and-jupyterhub-savio). 
+Savio now has an Open OnDemand portal, allowing users to launch Jupyter notebooks and RStudio servers for interactive debugging and batch computing. (Note: this supersedes the JupyterHub instance on Savio, which will soon become inactive). 
 
-Let's see a brief demo of an IPython notebook:
+Let's see a brief demo of a Jupyter notebook:
 
- - Connect to https://jupyter.brc.berkeley.edu
+ - Connect to https://ood.brc.berkeley.edu/
  - Login as usual with a one-time password
- - Select how to run your notebook (on our stand-alone Jupyter node (`Local server`) or in the `savio2_htc`, `savio` or `savio2` partitions)
+ - Click on the "Interactive Apps" drop-down menu and select how to run your notebook (either "compute in batch queues" or "non-batch for exploration, debugging")
+ - Specify your "SLURM Project/Account Name"
  - Start up a notebook
 
-HOWEVER, the Jupyterhub service sometimes doesn't interact well with the SLURM scheduler causing your notebook not to start and no helpful error messages to be produced.  Instead, one can [run a Jupyter notebook through the visualization node](http://research-it.berkeley.edu/services/high-performance-computing/using-jupyter-notebooks-and-jupyterhub-savio) (see the material at the bottom of the webpage).
+Alternatively, one can [run a Jupyter notebook through the visualization node](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/using-jupyter-notebooks-and-jupyterhub-savio/#viz).
 
-You can also run [parallel computations via an IPython notebook](http://research-it.berkeley.edu/services/high-performance-computing/using-jupyter-notebooks-and-jupyterhub-savio/parallelization).
+You can also run [parallel computations via an IPython notebook](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/using-jupyter-notebooks-and-jupyterhub-savio/parallelization/).
 
 # Example use of standard software: Python
 
@@ -659,7 +660,7 @@ Now here's the R code (see *parallel-multi.R*) we're running:
 ```
 library(doMPI)
 
-cl = startMPIcluster()  # by default will start one fewer slave, using one for master
+cl = startMPIcluster()  # by default will start one fewer worker, using one for the main
 registerDoMPI(cl)
 clusterSize(cl) # just to check
 
@@ -746,11 +747,8 @@ We're also including some articles and documentation that may be helpful in gett
 
 # Upcoming events and hiring
 
- - Lots of other events at Berkeley this week during [Love Data Week](https://guides.lib.berkeley.edu/ldw2020).
+ - Lots of other events at Berkeley this week during [Love Data Week](https://researchdata.berkeley.edu/events/love-data-week-2021).
  
  - We're planning a training on basic principles of and use of parallelization on Savio and similar systems for sometime in April.
 
  - Research IT is hiring graduate students as domain consultants. See flyers or talk to one of us.
-
-
-
