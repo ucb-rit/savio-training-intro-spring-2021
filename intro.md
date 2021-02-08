@@ -1,5 +1,5 @@
 % Savio introductory training: Basic usage of the Berkeley Savio high-performance computing cluster
-% February 10, 2020
+% February 11, 2021
 % Clint Hamilton, James Duncan and Chris Paciorek
 
 
@@ -10,6 +10,14 @@ We'll do this mostly as a demonstration. We encourage you to login to your accou
 Much of this material is based on the extensive Savio documention we have prepared and continue to prepare, available at [https://docs-research-it.berkeley.edu/services/high-performance-computing/](https://docs-research-it.berkeley.edu/services/high-performance-computing/).
 
 The materials for this tutorial are available using git at the short URL ([tinyurl.com/brc-feb21](https://tinyurl.com/brc-feb21)), the  GitHub URL ([https://github.com/ucb-rit/savio-training-intro-spring-2021](https://github.com/ucb-rit/savio-training-intro-spring-2021)), or simply as a [zip file](https://github.com/ucb-rit/savio-training-intro-spring-2021/archive/main.zip).
+
+# Upcoming events and hiring
+
+ - Lots of other events at Berkeley this week during [Love Data Week](https://researchdata.berkeley.edu/events/love-data-week-2021).
+ 
+ - We're planning a training on basic principles of and use of parallelization on Savio and similar systems for sometime in April.
+
+ - Research IT is hiring graduate students as domain consultants. See flyers or talk to one of us.
 
 # Outline
 
@@ -47,7 +55,7 @@ This training session will cover the following topics:
 
 # System capabilities and hardware
 
-- Savio is a 470-node, >11,600-core Linux cluster rated at nearly 450 peak teraFLOPS. 
+- Savio is a 600-node, >15,000-core Linux cluster rated at nearly 540 peak teraFLOPS. 
    - about 40% of the  compute nodes provided by the institution for general access
    - about 60% compute nodes contributed by researchers in the Condo program
 
@@ -87,7 +95,13 @@ Savio has a few different kinds of nodes:
 
 Let's take a look at the hardware specifications of the computing nodes on the cluster [(see the *Hardware Configuration* page)](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/hardware-config/).
 
-The nodes are divided into several pools, called partitions. These partitions have different restrictions and costs associated with them ([see the *Scheduler Configuration* page](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/scheduler-config/) and [the associated costs in Service Units](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/service-units-savio/)). Any job you submit must be submitted to a partition to which you have access.
+The nodes are divided into several pools, called *partitions*. These
+partitions have different restrictions and costs associated with them
+([see the *Scheduler Configuration* page](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/scheduler-config/)
+and
+[the associated costs in Service Units](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/service-units-savio/)).
+
+Any job you submit must be submitted to a partition to which you have access.
 
 # Disk space options (home, scratch, group, condo storage)
 
@@ -103,16 +117,16 @@ are available from any of the nodes and changes to files on one node will be see
 
 When reading/writing data to/from disk, unless the amount of data is small, please put the data in your scratch space at `/global/scratch/SAVIO_USERNAME`. The system is set up so that disk access for all users is optimized when users are doing input/output (I/O) off of scratch rather than off of their home directories. Doing I/O with files on your home directory can impact the ability of others to access their files on the filesystem. 
 
-Large amounts of disk space is available for purchase from the [*condo storage* offering](https://docs-research-it.berkeley.edu/services/high-performance-computing/condos/condo-storage-service/). The minimum purchase is about $5,840, which provides roughly 42 TB for five years.
+Large amounts of disk space is available for purchase from the [*condo storage* offering](https://docs-research-it.berkeley.edu/services/high-performance-computing/condos/condo-storage-service/). The minimum purchase is about $6,200, which provides roughly 42 TB for five years.
 
 
 # Sensitive Data on Savio
     
-Savio (and AEoD) is certified for moderately sensitive data: P2, P3 (formerly PL1) and NIH dbGap (non-"notice-triggering" data).
+Savio (and AEoD) is [certified for moderately sensitive data](https://docs-research-it.berkeley.edu/services/high-performance-computing/getting-account/sensitive-accounts/): P2, P3 (formerly PL1) and NIH dbGap (non-"notice-triggering" data).
 
 PIs/faculty must request a P2/P3 project alongside requests for a new FCA/condo allocation. Existing projects can't be converted to P2/P3 projects.
 
-BRC is also working on a platform for highly sensitive data (P4) called SRDC.
+BRC has a new platform for highly sensitive data (P4) called SRDC.
 
 More info is available in the slides from Dec. 2019 "Working with Sensitive + Protected Data" workshop: [https://tinyurl.com/srdc-dec2019](https://tinyurl.com/srdc-dec2019)
 
@@ -205,7 +219,9 @@ Globus also provides a [command line interface](https://docs.globus.org/cli/) th
 
 # Data transfer: Box & bDrive
 
-Box and bDrive (the Cal branded Google Drive) both provide **unlimited**, free, secured, and encrypted content storage of files to Berkeley affiliates. They are both good options for backup and long-term storage. While the total storage is unlimited, Box has a maximum file size of 15 Gb while bDrive has a maximum file size of 5Tb.
+Box and bDrive (the Cal branded Google Drive) both provide free,
+secured, and encrypted content storage of files to Berkeley
+affiliates. bDrive provides unlimited storage, while Box no longer does. They are both good options for backup and long-term storage. While the total storage is unlimited, Box has a maximum file size of 15 Gb while bDrive has a maximum file size of 5Tb.
 
 You can interact with both services via web browser, and both services provide a desktop app you can use to move and sync files between your computer and the cloud.
 
@@ -216,7 +232,8 @@ You can interact with both services via web browser, and both services provide a
 
 For more ambitious users, Box has a Python-based SDK that can be used to write scripts for file transfers. For more information on how to do this, check out the `BoxAuthenticationBootstrap.ipynb` and `TransferFilesFromBoxToSavioScratch.ipynb` from BRC's cyberinfrastructure engineer on [GitHub](https://github.com/ucberkeley/brc-cyberinfrastructure/tree/dev/analysis-workflows/notebooks)
 
-BRC is working (long-term) on making Globus available for transfer to/from Box and bDrive, but it's not available yet.
+BRC is working  on making Globus available for transfer to/from Box
+and bDrive. We hope this will be available in the near future.
 
 # Data transfer: Box & bDrive with rclone
 
@@ -421,9 +438,14 @@ Here are some of the variables that may be useful: SLURM_NTASKS, SLURM_CPUS_PER_
 
 Some common paradigms are:
 
- - MPI jobs that use *one* CPU per task for each of *n* tasks
- - openMP/threaded jobs that use *c* CPUs (on one node) for *one* task
- - hybrid MPI+threaded jobs that use *c* CPUs for each of *n* tasks
+ - 1 node, many CPUs
+     - openMP/threaded jobs - 1 task, *c* CPUs for the task
+     - Python/R/GNU parallel - many tasks, 1 per CPU at any given time
+ - many nodes, many CPUs
+     - MPI jobs that use 1 CPU per task for each of *n* tasks, spread across multiple nodes
+     - Python/R/GNU parallel - many tasks, 1 per CPU at any given time
+ - hybrid jobs that use *c* CPUs for each of *n* tasks
+     - e.g., MPI+threaded code
 
 There are lots more examples of job submission scripts for different kinds of parallelization (multi-node (MPI), multi-core (openMP), hybrid, etc.) [here](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/scheduler-examples/).
 
@@ -442,7 +464,8 @@ matlab -nodesktop -nodisplay
 
 To end your interactive session (and prevent accrual of additional charges to your FCA), simply enter `exit` in the terminal session.
 
-NOTE: you are charged for the entire node when running interactive jobs (as with batch jobs) except in the *savio2_htc* and *savio2_gpu* partitions. 
+NOTE: you are charged for the entire node when running interactive
+jobs (as with batch jobs) except in the *savio2_htc* and various GPU partitions. 
 
 # Running graphical interfaces interactively on the visualization node
 
@@ -486,7 +509,7 @@ You may have many serial jobs to run. It may be more cost-effective to collect t
 
 Here are some options:
 
-  - using [Savio's HT Helper tool](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/hthelper-script/) to run many computational tasks (e.g., thousands of simulations, scanning tens of thousands of parameter values, etc.) as part of single Savio job submission
+  - using [GNU parallel](http://research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/gnu-parallel) to run many computational tasks (e.g., thousands of simulations, scanning tens of thousands of parameter values, etc.) as part of single Savio job submission
   - using [single-node parallelism](https://github.com/berkeley-scf/tutorial-parallel-basics) and [multiple-node parallelism](https://github.com/berkeley-scf/tutorial-parallel-distributed) in Python, R, and MATLAB
     - parallel R tools such as *future*, *foreach*, *parLapply*, and *mclapply*
     - parallel Python tools such as  *ipyparallel*, *Dask*, and *ray*
@@ -651,7 +674,7 @@ We'll do this interactively though often this sort of thing would be done via a 
 cp bayArea.csv /global/scratch/paciorek/.
 
 srun -A co_stat -p savio2  --nodes=2 --ntasks-per-node=24 -t 30:0 --pty bash
-module load r/3.4.2 r-packages 
+module load r r-packages 
 mpirun R CMD BATCH --no-save parallel-multi.R parallel-multi.Rout &
 ```
 
@@ -740,15 +763,7 @@ We're also including some articles and documentation that may be helpful in gett
     - brc-hpc-help@berkeley.edu
  - For questions about computing resources in general, including cloud computing: 
     - brc@berkeley.edu
-    - office hours: Wed. 1:30-3:00 and Thur. 9:30-11:00 here in AIS
+    - office hours: office hours: Wed. 1:30-3:00 and Thur. 9:30-11:00 [on Zoom](https://research-it.berkeley.edu/programs/berkeley-research-computing/research-computing-consulting)
  - For questions about data management (including HIPAA-protected data): 
     - researchdata@berkeley.edu
-    - office hours: Wed. 1:30-3:00 and Thur. 9:30-11:00 here in AIS
-
-# Upcoming events and hiring
-
- - Lots of other events at Berkeley this week during [Love Data Week](https://researchdata.berkeley.edu/events/love-data-week-2021).
- 
- - We're planning a training on basic principles of and use of parallelization on Savio and similar systems for sometime in April.
-
- - Research IT is hiring graduate students as domain consultants. See flyers or talk to one of us.
+    - office hours: office hours: Wed. 1:30-3:00 and Thur. 9:30-11:00 [on Zoom](https://research-it.berkeley.edu/programs/berkeley-research-computing/research-computing-consulting)
