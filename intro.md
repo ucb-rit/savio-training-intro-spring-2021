@@ -457,8 +457,8 @@ Here's an example job script that I'll run. You'll need to modify the --account 
 # Partition:
 #SBATCH --partition=savio2
 #
-# Wall clock limit (30 seconds here):
-#SBATCH --time=00:00:30
+# Wall clock limit (5 minutes here):
+#SBATCH --time=00:05:00
 #
 ## Command(s) to run:
 module load python/3.6

@@ -8,7 +8,7 @@
 # Partition:
 #SBATCH --partition=savio2
 #
-# Wall clock limit (30 seconds here):
+# Wall clock limit (5 minutes here):
 #SBATCH --time=00:05:00
 #
 ## Command(s) to run:
