@@ -752,7 +752,7 @@ Alternatively, one can [run a Jupyter notebook through the visualization node](h
 
 You can also run [parallel computations via an IPython notebook](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/using-jupyter-notebooks-and-jupyterhub-savio/parallelization/).
 
-# Example use of standard software: Python
+# Example use of standard software: Python (time permitting)
 
 Let's see a basic example of doing an analysis in Python across multiple cores on multiple nodes. We'll use the airline departure data in [bayArea.csv](https://www.stat.berkeley.edu/share/paciorek/bayArea.csv).
 
@@ -853,7 +853,7 @@ And we'll stop our cluster.
 ipcluster stop
 ```
 
-# Example use of standard software: R
+# Example use of standard software: R (time permitting)
 
 Let's see a basic example of doing an analysis in R across multiple cores on multiple nodes. We'll use the airline departure data in *bayArea.csv*.
 
@@ -932,7 +932,8 @@ results
 
 You may also want to look into the `future` package for R, which provides a user-friendly interface to parallelization across one or more nodes. Here's a [tutorial on using future](https://github.com/berkeley-scf/tutorial-dask-future).
 
-# Alternative Python Parallelization: Dask
+# Alternative Python Parallelization: Dask (time permitting)
+
 In addition to iPyParallel, one of the newer tools in the Python space is [Dask](http://dask.pydata.org/en/latest/), which provides out-of-the-box parallelization more easily without much setup or too much additional work. Dask, as a Python package, extends Numpy/Pandas syntax for arrays and dataframes that already exists and introduces native parallelization to these data structures, which speeds up analyses. Since Dask dataframes/arrays are descendants of the Pandas dataframe and Numpy array, they are compatible with any existing code and can serve as a plug-in replacement, with performance enhancements for multiple cores/nodes. It's also worth noting that Dask is useful for scaling up to large clusters like Savio but can also be useful for speeding up analyses on your local computer.
 
 We have materials available from [our spring 2019 training on using Dask on Savio](https://github.com/ucb-rit/savio-training-dask-2019) and from a [tutorial on using Dask](https://github.com/berkeley-scf/tutorial-dask-future).

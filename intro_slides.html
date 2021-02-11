@@ -839,8 +839,8 @@ Recent jobs (most recent job first):
 <p>Alternatively, one can <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/using-jupyter-notebooks-and-jupyterhub-savio/#viz">run a Jupyter notebook through the visualization node</a>.</p>
 <p>You can also run <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/using-jupyter-notebooks-and-jupyterhub-savio/parallelization/">parallel computations via an IPython notebook</a>.</p>
 </div>
-<div id="example-use-of-standard-software-python" class="slide section level1">
-<h1>Example use of standard software: Python</h1>
+<div id="example-use-of-standard-software-python-time-permitting" class="slide section level1">
+<h1>Example use of standard software: Python (time permitting)</h1>
 <p>Let’s see a basic example of doing an analysis in Python across multiple cores on multiple nodes. We’ll use the airline departure data in <a href="https://www.stat.berkeley.edu/share/paciorek/bayArea.csv">bayArea.csv</a>.</p>
 <p>Here we’ll use <em>IPython</em> for parallel computing. The example is a bit contrived in that a lot of the time is spent moving data around rather than doing computation, but it should illustrate how to do a few things.</p>
 <p>First we’ll user-install a Python package called <code>statsmodels</code> to get a more recent version:</p>
@@ -915,8 +915,8 @@ parallel_result</code></pre>
 <p>And we’ll stop our cluster.</p>
 <pre><code>ipcluster stop</code></pre>
 </div>
-<div id="example-use-of-standard-software-r" class="slide section level1">
-<h1>Example use of standard software: R</h1>
+<div id="example-use-of-standard-software-r-time-permitting" class="slide section level1">
+<h1>Example use of standard software: R (time permitting)</h1>
 <p>Let’s see a basic example of doing an analysis in R across multiple cores on multiple nodes. We’ll use the airline departure data in <em>bayArea.csv</em>.</p>
 <p>We’ll do this interactively though often this sort of thing would be done via a batch job.</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="co"># remember to do I/O off scratch</span></a>
@@ -978,8 +978,8 @@ results &lt;- foreach(destVal = destVals) %dopar% {
 results</code></pre>
 <p>You may also want to look into the <code>future</code> package for R, which provides a user-friendly interface to parallelization across one or more nodes. Here’s a <a href="https://github.com/berkeley-scf/tutorial-dask-future">tutorial on using future</a>.</p>
 </div>
-<div id="alternative-python-parallelization-dask" class="slide section level1">
-<h1>Alternative Python Parallelization: Dask</h1>
+<div id="alternative-python-parallelization-dask-time-permitting" class="slide section level1">
+<h1>Alternative Python Parallelization: Dask (time permitting)</h1>
 <p>In addition to iPyParallel, one of the newer tools in the Python space is <a href="http://dask.pydata.org/en/latest/">Dask</a>, which provides out-of-the-box parallelization more easily without much setup or too much additional work. Dask, as a Python package, extends Numpy/Pandas syntax for arrays and dataframes that already exists and introduces native parallelization to these data structures, which speeds up analyses. Since Dask dataframes/arrays are descendants of the Pandas dataframe and Numpy array, they are compatible with any existing code and can serve as a plug-in replacement, with performance enhancements for multiple cores/nodes. It’s also worth noting that Dask is useful for scaling up to large clusters like Savio but can also be useful for speeding up analyses on your local computer.</p>
 <p>We have materials available from <a href="https://github.com/ucb-rit/savio-training-dask-2019">our spring 2019 training on using Dask on Savio</a> and from a <a href="https://github.com/berkeley-scf/tutorial-dask-future">tutorial on using Dask</a>.</p>
 <p>We’re also including some articles and documentation that may be helpful in getting started:</p>
