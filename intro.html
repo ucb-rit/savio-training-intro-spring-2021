@@ -101,6 +101,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 id="outline">Outline</h1>
 <p>This training session will cover the following topics:</p>
 <ul>
+<li>Introductory content
+<ul>
+<li>Basic parallel computing concepts</li>
+<li>High level overview of system</li>
+</ul></li>
 <li>System capabilities and hardware
 <ul>
 <li>Getting access to the system - FCA, condo, ICA</li>
@@ -142,12 +147,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Upcoming events</li>
 </ul></li>
 </ul>
-<h1 id="system-capabilities-and-hardware">System capabilities and hardware</h1>
+<h1 id="basic-parallel-computing-concepts-pt.-1">Basic Parallel Computing Concepts Pt. 1</h1>
 <ul>
-<li>Savio is a 600-node, &gt;15,000-core Linux cluster rated at nearly 540 peak teraFLOPS.
+<li>Who is Savio for?</li>
+<li>Types of computation (Flynn’s taxonomy)
+<ol type="1">
+<li>Single command, Single Data</li>
+<li>Single command, Multiple data</li>
+<li>Multiple command, Multiple data</li>
+<li>(Multiple Instruction, Single data)</li>
+</ol></li>
+<li>Savio is (generally) best for cases 2 &amp; 3</li>
+</ul>
+<h1 id="basic-parallel-computing-concepts-pt.-2">Basic Parallel Computing Concepts Pt. 2</h1>
 <ul>
-<li>about 40% of the compute nodes provided by the institution for general access</li>
-<li>about 60% compute nodes contributed by researchers in the Condo program</li>
+<li>What is Savio?
+<ul>
+<li>In layman’s terms:
+<ul>
+<li>A collection of really powerful computers (nodes)</li>
+<li>Some really big, fast hard drives</li>
+</ul></li>
+</ul></li>
+<li>Two types of parallel Computing
+<ul>
+<li>Shared memory (OpenMP)
+<ul>
+<li>All computation on the same node</li>
+<li>Can have shared objects in ram</li>
+</ul></li>
+<li>Distributed memory (MPI)
+<ul>
+<li>Computation on multiple nodes</li>
+<li>Special attention to passing information between nodes</li>
+</ul></li>
 </ul></li>
 </ul>
 <h1 id="getting-access-to-the-system---fca-and-condo">Getting access to the system - FCA and condo</h1>
@@ -157,123 +190,157 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Instructors can request an <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/getting-account/instructional-computing-allowance/">Instructional Computing Allowance (ICA)</a>.</li>
 </ul>
 <p>Faculty/principal investigators can allow researchers working with them to get user accounts with access to the FCA or condo resources available to the faculty member.</p>
-<h1 id="the-savio-cluster">The Savio cluster</h1>
-<p>Savio is a Linux cluster - by cluster we mean a set of computers networked together such that you can:</p>
+<h1 id="system-capabilities-and-hardware">System capabilities and hardware</h1>
 <ul>
-<li>access the system by logging into a “login node”</li>
-<li>access your files on the system from any of the computers</li>
-<li>run your computations across one or more of the “compute nodes”
+<li>Savio is a 600-node, &gt;15,000-core Linux cluster rated at nearly 540 peak teraFLOPS.
 <ul>
-<li>your work might use parallelization to do computation on more than one CPU</li>
-<li>you can also run “serial” jobs that use a single CPU</li>
+<li>about 40% of the compute nodes provided by the institution for general access</li>
+<li>about 60% compute nodes contributed by researchers in the Condo program</li>
 </ul></li>
 </ul>
-<h1 id="login-nodes-compute-nodes-and-dtn-nodes">Login nodes, compute nodes, and DTN nodes</h1>
-<p>Savio has a few different kinds of nodes:</p>
+<h1 id="the-savio-cluster">The Savio cluster</h1>
+<p>Savio is a Linux cluster - by cluster we mean a set of computers networked together</p>
 <ul>
-<li>login nodes: for login and non-intensive interactive work such as job submission and monitoring, basic compilation, managing your disk space</li>
-<li>data transfer nodes: for transferring data to/from Savio</li>
-<li>compute nodes: for computational tasks</li>
+<li>Savio has 3 kinds of nodes:
+<ul>
+<li>Login nodes</li>
+<li>Data transfer nodes</li>
+<li>Compute nodes</li>
+</ul></li>
+</ul>
+<h1 id="login-nodes">Login nodes</h1>
+<ul>
+<li>Login nodes
+<ul>
+<li>Used to access the system when loggin in</li>
+<li>For login and non-intensive interactive work such as:
+<ul>
+<li>job submission and monitoring</li>
+<li>basic compilation</li>
+<li>managing your disk space</li>
+</ul></li>
+</ul></li>
+</ul>
+<h1 id="data-transfer-nodes">Data transfer nodes</h1>
+<ul>
+<li>Data transfer nodes
+<ul>
+<li>For transferring data to/from Savio</li>
+<li>This is a notable difference from many other cluster
+<ul>
+<li>Login node: <code>hpc.brc.berkeley.edu</code></li>
+<li>Data transfer node: <code>dtn.brc.berkeley.edu</code></li>
+<li>Some applications may look for SFTP via login node</li>
+</ul></li>
+</ul></li>
+<li>Note: you can access your files on the system from any of the computers</li>
+</ul>
+<h1 id="compute-nodes">Compute nodes</h1>
+<ul>
+<li>Compute nodes
+<ul>
+<li>For computational tasks</li>
+<li>Your work might use parallelization to do computation on more than one CPU</li>
+<li>You can also run “serial” jobs that use a single CPU</li>
+</ul></li>
+</ul>
+<h1 id="savio-computing-node-types">Savio computing node types</h1>
+<ul>
+<li><p>There are multiple types of computation nodes with different hardware specifications <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/hardware-config/">(see the <em>Hardware Configuration</em> page)</a>.</p></li>
+<li>The nodes are divided into several pools, called <em>partitions</em></li>
+<li>These partitions have different restrictions and costs associated with them
+<ul>
+<li><a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/scheduler-config/">see the <em>Scheduler Configuration</em> page</a></li>
+<li>and <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/service-units-savio/">the associated costs in Service Units</a></li>
+</ul></li>
+<li><p>Any job you submit must be submitted to a partition to which you have access.</p></li>
 </ul>
 <h1 id="conceptual-diagram-of-savio">Conceptual diagram of Savio</h1>
 <center>
 <img src="savio_diagram.jpeg">
 </center>
-<h1 id="savio-computing-nodes">Savio computing nodes</h1>
-<p>Let’s take a look at the hardware specifications of the computing nodes on the cluster <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/hardware-config/">(see the <em>Hardware Configuration</em> page)</a>.</p>
-<p>The nodes are divided into several pools, called <em>partitions</em>. These partitions have different restrictions and costs associated with them (<a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/scheduler-config/">see the <em>Scheduler Configuration</em> page</a> and <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/service-units-savio/">the associated costs in Service Units</a>).</p>
-<p>Any job you submit must be submitted to a partition to which you have access.</p>
 <h1 id="disk-space-options-home-scratch-group-condo-storage">Disk space options (home, scratch, group, condo storage)</h1>
-<p>You have access to the following disk space, described <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/storing-data/">here in the <em>Storing Data</em> page</a>.</p>
-<p>Those directories:</p>
 <ul>
-<li><code>/global/home/users/SAVIO_USERNAME</code></li>
-<li><code>/global/scratch/SAVIO_USERNAME</code></li>
-<li><code>/global/home/groups/SAVIO_GROUPNAME</code></li>
+<li>You have access to the multiple kinds of disk space, described <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/storing-data/">here in the <em>Storing Data</em> page</a>.</li>
+<li>There are 3 directories:
+<ul>
+<li><code>/global/home/users/SAVIO_USERNAME</code>
+<ul>
+<li>10 GB per user, backed up</li>
+</ul></li>
+<li><code>/global/home/groups/SAVIO_GROUPNAME</code>
+<ul>
+<li>Per group: 30 GB for FCA, 200 GB for Condo</li>
+</ul></li>
+<li><code>/global/scratch/SAVIO_USERNAME</code>
+<ul>
+<li>12 TB per user</li>
+<li>Connected via Infiniband (very fast)</li>
+<li>Primary data storage during computation</li>
+</ul></li>
+</ul></li>
+<li>All 3 are available from any of the nodes and changes to files on one node will be seen on all the other nodes</li>
+<li>Large amounts of disk space is available for purchase from the <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/condos/condo-storage-service/"><em>condo storage</em> offering</a>.
+<ul>
+<li>The minimum purchase is about $6,200, which provides roughly 42 TB for five years</li>
+</ul></li>
 </ul>
-<p>are available from any of the nodes and changes to files on one node will be seen on all the other nodes.</p>
-<p>When reading/writing data to/from disk, unless the amount of data is small, please put the data in your scratch space at <code>/global/scratch/SAVIO_USERNAME</code>. The system is set up so that disk access for all users is optimized when users are doing input/output (I/O) off of scratch rather than off of their home directories. Doing I/O with files on your home directory can impact the ability of others to access their files on the filesystem.</p>
-<p>Large amounts of disk space is available for purchase from the <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/condos/condo-storage-service/"><em>condo storage</em> offering</a>. The minimum purchase is about $6,200, which provides roughly 42 TB for five years.</p>
+<h1 id="using-disk-space">Using disk space</h1>
+<ul>
+<li>When reading/writing data to/from disk put the data in your scratch space at <code>/global/scratch/SAVIO_USERNAME</code></li>
+<li>The system is set up so that disk access for all users is optimized when users are doing input/output (I/O) off of scratch rather than off of their home directories</li>
+<li>Doing I/O with files on your home directory can impact the ability of others to access their files on the filesystem</li>
+</ul>
 <h1 id="sensitive-data-on-savio">Sensitive Data on Savio</h1>
-<p>Savio (and AEoD) is <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/getting-account/sensitive-accounts/">certified for moderately sensitive data</a>: P2, P3 (formerly PL1) and NIH dbGap (non-“notice-triggering” data).</p>
-<p>PIs/faculty must request a P2/P3 project alongside requests for a new FCA/condo allocation. Existing projects can’t be converted to P2/P3 projects.</p>
-<p>BRC has a new platform for highly sensitive data (P4) called SRDC.</p>
+<ul>
+<li>Savio (and AEoD) is <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/getting-account/sensitive-accounts/">certified for moderately sensitive data</a>
+<ul>
+<li>P2, P3 (formerly PL1) and NIH dbGap (non-“notice-triggering” data).</li>
+</ul></li>
+<li>PIs/faculty must request a P2/P3 project alongside requests for a new FCA/condo allocation
+<ul>
+<li>Existing projects can’t be converted to P2/P3 projects.</li>
+</ul></li>
+<li>BRC has a new platform for highly sensitive data (P4) called SRDC.</li>
+</ul>
 <p>More info is available in the slides from Dec. 2019 “Working with Sensitive + Protected Data” workshop: <a href="https://tinyurl.com/srdc-dec2019">https://tinyurl.com/srdc-dec2019</a></p>
+<h1 id="logging-in-getting-set-up">Logging in: Getting Set Up</h1>
+<ul>
+<li>To login, you need to have software on your own machine that gives you access to the SSH command
+<ul>
+<li>These come built-in with Mac (see <code>Applications -&gt; Utilities -&gt; Terminal</code>).</li>
+<li>For Windows, you can use Powershell (or Command Prompt)
+<ul>
+<li>Other application such as <a href="https://mobaxterm.mobatek.net/">MobaXterm</a> may offer more functionality</li>
+</ul></li>
+</ul></li>
+<li>You also need to set up your smartphone or tablet with <em>Google Authenticator</em> to generate one-time passwords for you.</li>
+<li>Here are instructions for <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/logging-brc-clusters/">doing this setup, and for logging in</a>.</li>
+</ul>
 <h1 id="logging-in">Logging in</h1>
-<p>To login, you need to have software on your own machine that gives you access to a UNIX terminal (command-line) session. These come built-in with Mac (see <code>Applications -&gt; Utilities -&gt; Terminal</code>). For Windows, a good option is <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">PuTTY</a>.</p>
-<p>You also need to set up your smartphone or tablet with <em>Google Authenticator</em> to generate one-time passwords for you.</p>
-<p>Here are instructions for <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/logging-brc-clusters/">doing this setup, and for logging in</a>.</p>
 <p>Then to login:</p>
 <pre><code>ssh SAVIO_USERNAME@hpc.brc.berkeley.edu</code></pre>
-<p>Then enter XXXXXYYYYYY where XXXXXX is your PIN and YYYYYY is the one-time password. YYYYYY will be shown when you open your <em>Google authenticator</em> app on your phone/tablet.</p>
-<p>One can then navigate around and get information using standard UNIX commands such as <code>ls</code>, <code>cd</code>, <code>du</code>, <code>df</code>, etc. There is a lot of material online about using the UNIX command line (also called the shell; ‘bash’ is one common variation). Here is a <a href="https://github.com/berkeley-scf/tutorial-unix-basics">basic tutorial</a>.</p>
+<ul>
+<li><p>Then enter XXXXXYYYYYY where XXXXXX is your PIN and YYYYYY is the one-time password. YYYYYY will be shown when you open your <em>Google authenticator</em> app on your phone/tablet.</p></li>
+<li>One can then navigate around and get information using standard UNIX commands such as <code>ls</code>, <code>cd</code>, <code>du</code>, <code>df</code>, etc.
+<ul>
+<li>There is a lot of material online about using the UNIX command line
+<ul>
+<li>Also called the shell; ‘bash’ is one common variation</li>
+</ul></li>
+<li>Here is a <a href="https://github.com/berkeley-scf/tutorial-unix-basics">basic tutorial</a>.</li>
+</ul></li>
+</ul>
+<h1 id="graphical-interface">Graphical Interface</h1>
 <p>If you want to be able to open programs with graphical user interfaces:</p>
 <pre><code>ssh -Y SAVIO_USERNAME@hpc.brc.berkeley.edu</code></pre>
-<p>To display the graphical windows on your local machine, you’ll need X server software on your own machine to manage the graphical windows. For Windows, your options include <em>eXceed</em> or <em>Xming</em> and for Mac, there is <em>XQuartz</em>.</p>
-<h1 id="data-transfer-with-examples-tofrom-laptop-box-google-drive-aws">Data transfer with examples to/from laptop, Box, Google Drive, AWS</h1>
-<p>To do any work on the system, you’ll usually need to transfer files (data files, code files, etc.) to the Savio filesystem, either into your home directory, your scratch directory or a group directory.</p>
-<p>And once you’re done with a computation, you’ll generally need to transfer files back to another place (e.g., your laptop).</p>
-<p>Let’s see how we would transfer files/data to/from Savio using a few different approaches.</p>
-<h1 id="data-transfer-scpsftp">Data transfer: SCP/SFTP</h1>
-<p>We can use the <em>scp</em> and <em>sftp</em> protocols to transfer files.</p>
-<p>You need to use the Savio data transfer node, <code>dtn.brc.berkeley.edu</code>. The file <code>bayArea.csv</code> is too large to store on Github; you can obtain it <a href="https://www.stat.berkeley.edu/share/paciorek/bayArea.csv">here</a>.</p>
-<p>Linux/Mac:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># to Savio, while on your local machine</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="fu">scp</span> bayArea.csv hannsode@dtn.brc.berkeley.edu:~/.</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="fu">scp</span> bayArea.csv hannsode@dtn.brc.berkeley.edu:~/data/newName.csv</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="fu">scp</span> bayArea.csv hannsode@dtn.brc.berkeley.edu:/global/scratch/paciorek/.</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co"># from Savio, while on your local machine</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="fu">scp</span> hannsode@dtn.brc.berkeley.edu:~/data/newName.csv ~/Documents/.</a></code></pre></div>
-<p>If you can ssh to your local machine or want to transfer files to other systems on to which you can ssh, you can login to the dtn node to execute the scp commands:</p>
-<pre><code>ssh SAVIO_USERNAME@dtn.brc.berkeley.edu
-[SAVIO_USERNAME@dtn ~]$ scp ~/file.csv OTHER_USERNAME@other.domain.edu:~/data/.</code></pre>
-<p>If you’re already connected to a Savio login node, you can use <code>ssh dtn</code> to login to the dtn.</p>
-<p>One program you can use with Windows is <a href="https://winscp.net/eng/index.php">WinSCP</a>, and a multi-platform program for doing transfers via SFTP is <a href="https://filezilla-project.org/">FileZilla</a>. After logging in, you’ll see windows for the Savio filesystem and your local filesystem on your machine. You can drag files back and forth.</p>
-<p>You can package multiple files (including directory structure) together using tar:</p>
-<pre><code>tar -cvzf files.tgz dir_to_zip 
-# to untar later:
-tar -xvzf files.tgz</code></pre>
-<h1 id="data-transfer-globus">Data transfer: Globus</h1>
-<p>You can use Globus Connect to transfer data data to/from Savio (and between other resources) quickly and unattended. This is a better choice for large transfers. Here are some <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/transferring-data/using-globus-connect-savio/">instructions</a>.</p>
-<p>Globus transfers data between <em>endpoints</em>. Possible endpoints include: Savio, your laptop or desktop, NERSC, and XSEDE, among others.</p>
-<p>Savio’s endpoint is named <code>ucb#brc</code>.</p>
-<p>If you are transferring to/from your laptop, you’ll need</p>
-<ol type="1">
-<li>Globus Connect Personal set up,</li>
-<li>your machine established as an endpoint, and</li>
-<li>Globus Connect Pesonal actively running on your machine. At that point you can proceed as below.</li>
-</ol>
-<p>To transfer files, you open Globus at <a href="https://globus.org">globus.org</a> and authenticate to the endpoints you want to transfer between. This means that you only need to authenticate once, whereas you might need to authenticate multiple times with scp and sftp. You can then start a transfer and it will proceed in the background, including restarting if interrupted.</p>
-<p>Globus also provides a <a href="https://docs.globus.org/cli/">command line interface</a> that will allow you to do transfers programmatically, such that a transfer could be embedded in a workflow script.</p>
-<h1 id="data-transfer-box-bdrive">Data transfer: Box &amp; bDrive</h1>
-<p>Box and bDrive (the Cal branded Google Drive) both provide free, secured, and encrypted content storage of files to Berkeley affiliates. bDrive provides unlimited storage, while Box no longer does. They are both good options for backup and long-term storage. While the total storage is unlimited, Box has a maximum file size of 15 Gb while bDrive has a maximum file size of 5Tb.</p>
-<p>You can interact with both services via web browser, and both services provide a desktop app you can use to move and sync files between your computer and the cloud.</p>
 <ul>
-<li><a href="http://box.berkeley.edu">Box web app</a></li>
-<li><a href="https://www.box.com/resources/downloads">Box desktop app</a></li>
-<li><a href="http://bdrive.berkeley.edu/">bDrive web app</a></li>
-<li><a href="https://www.google.com/drive/download/">Drive desktop app</a></li>
-</ul>
-<p>For more ambitious users, Box has a Python-based SDK that can be used to write scripts for file transfers. For more information on how to do this, check out the <code>BoxAuthenticationBootstrap.ipynb</code> and <code>TransferFilesFromBoxToSavioScratch.ipynb</code> from BRC’s cyberinfrastructure engineer on <a href="https://github.com/ucberkeley/brc-cyberinfrastructure/tree/dev/analysis-workflows/notebooks">GitHub</a></p>
-<p>BRC is working on making Globus available for transfer to/from Box and bDrive. We hope this will be available in the near future.</p>
-<h1 id="data-transfer-box-bdrive-with-rclone">Data transfer: Box &amp; bDrive with rclone</h1>
-<p><a href="https://rclone.org/">rclone</a> is a command line program that you can use to sync files between both services and Savio. You can read instructions for using rclone on Savio <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/transferring-data/rclone-box-bdrive/">with Box or bDrive here</a>.</p>
-<p>Briefly the steps to set up rclone on Savio to interact with Box are as follows.</p>
-<p>Configuration (on dtn): <code>rclone config</code></p>
+<li>To display the graphical windows on your local machine, you’ll need X server software on your own machine to manage the graphical windows
 <ul>
-<li>Use auto config? -&gt; n</li>
-<li>For Box: install rclone on your PC, then run <code>rclone authorize &quot;box&quot;</code></li>
-<li>Paste the link into your browser and log in to your CalNet account</li>
-<li>Copy the authentication token and paste into the <code>rclone config</code> prompt on Savio</li>
+<li>For Windows, your options include <em>MobaXterm</em>, <em>eXceed</em>, or <em>Xming</em></li>
+<li>For Mac, there is <em>XQuartz</em></li>
+</ul></li>
 </ul>
-<p>rclone commands:</p>
-<pre><code>rclone listremotes # Lists configured remotes.
-rclone lsd remote_name: # Lists directories, but not files. Note the trailing colon.
-rclone size remote_name:home # Prints size and number of objects in remote &quot;home&quot; directory. This can take a very long time when tallying Tbs of files.
-rclone copy /global/home/users/hannsode remote_name:savio_home/hannsode # Copies my entire home directory to a new directory on the remote.
-rclone copy /global/scratch/hannsode/genomes remote_name:genome_sequences # Copies entire directory contents to a dirctory on the remote with a new name.</code></pre>
-<p>Finally you can set up <a href="https://calnetweb.berkeley.edu/calnet-departments/special-purpose-accounts-spa">special purpose accounts</a> so files are owned at a project level rather than by individuals.</p>
 <h1 id="editing-files">Editing files</h1>
 <p>You are welcome to edit your files on Savio (rather than copying files back and forth from your laptop and editing them on your laptop). To do so you’ll need to use some sort of editor. Savio has <code>vim</code>, <code>emacs</code>, and <code>nano</code> installed. Just start the editor from a login node.</p>
 <pre><code>## To use vim
@@ -283,6 +350,142 @@ emacs myfile.txt
 ## To use nano
 module load nano
 nano myfile.txt</code></pre>
+<h1 id="data-transfer-with-examples-tofrom-laptop-box-google-drive-aws">Data transfer with examples to/from laptop, Box, Google Drive, AWS</h1>
+<p>To do any work on the system, you’ll usually need to transfer files (data files, code files, etc.) to the Savio filesystem, either into your home directory, your scratch directory or a group directory.</p>
+<p>And once you’re done with a computation, you’ll generally need to transfer files back to another place (e.g., your laptop).</p>
+<p>Let’s see how we would transfer files/data to/from Savio using a few different approaches.</p>
+<h1 id="data-transfer-for-smaller-files-scp">Data transfer for smaller files: SCP</h1>
+<ul>
+<li><p>The most common command line protocol for file transfer is <em>SCP</em></p></li>
+<li><p>You need to use the Savio data transfer node, <code>dtn.brc.berkeley.edu</code>.</p></li>
+<li><p>The example file <code>bayArea.csv</code> is too large to store on Github; you can obtain it <a href="https://www.stat.berkeley.edu/share/paciorek/bayArea.csv">here</a>.</p></li>
+<li><p>SCP is supported in terminal for Mac/Linux and in Powershell/Command Prompt in Windows</p></li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># to Savio, while on your local machine</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="fu">scp</span> bayArea.csv hannsode@dtn.brc.berkeley.edu:~/.</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="fu">scp</span> bayArea.csv hannsode@dtn.brc.berkeley.edu:~/data/newName.csv</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="fu">scp</span> bayArea.csv hannsode@dtn.brc.berkeley.edu:/global/scratch/paciorek/.</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co"># from Savio, while on your local machine</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="fu">scp</span> hannsode@dtn.brc.berkeley.edu:~/data/newName.csv ~/Documents/.</a></code></pre></div>
+<p>If you can ssh to your local machine or want to transfer files to other systems on to which you can ssh, you can login to the dtn node to execute the scp commands:</p>
+<pre><code>ssh SAVIO_USERNAME@dtn.brc.berkeley.edu
+[SAVIO_USERNAME@dtn ~]$ scp ~/file.csv OTHER_USERNAME@other.domain.edu:~/data/.</code></pre>
+<p>If you’re already connected to a Savio login node, you can use <code>ssh dtn</code> to login to the dtn.</p>
+<p>Pro tip: You can package multiple files (including directory structure) together using tar</p>
+<pre><code>tar -cvzf files.tgz dir_to_zip
+# to untar later:
+tar -xvzf files.tgz</code></pre>
+<h1 id="data-transfer-for-smaller-files-sftp">Data transfer for smaller files: SFTP</h1>
+<ul>
+<li>Another common method for file transfer is <em>SFTP</em></li>
+<li>A multi-platform program for doing transfers via SFTP is <a href="https://filezilla-project.org/">FileZilla</a>.</li>
+<li>After logging in to most <em>SFTP</em> applications, you’ll see windows for the Savio filesystem and your local filesystem on your machine. You can drag files back and forth.</li>
+</ul>
+<h1 id="data-transfer-for-larger-files-globus-intro">Data transfer for larger files: Globus, Intro</h1>
+<ul>
+<li>You can use Globus Connect to transfer data data to/from Savio (and between other resources) quickly and unattended
+<ul>
+<li>This is a better choice for large transfers</li>
+<li>Here are some <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/transferring-data/using-globus-connect-savio/">instructions</a>.</li>
+</ul></li>
+<li>Globus transfers data between <em>endpoints</em>
+<ul>
+<li>Possible endpoints include
+<ul>
+<li>Savio</li>
+<li>your laptop or desktop</li>
+<li>Other clusters like NERSC and XSEDE</li>
+</ul></li>
+</ul></li>
+</ul>
+<h1 id="data-transfer-for-larger-files-globus-requirements">Data transfer for larger files: Globus, requirements</h1>
+<ul>
+<li>If you are transferring to/from your laptop, you’ll need
+<ol type="1">
+<li>Globus Connect Personal set up,</li>
+<li>your machine established as an endpoint, and</li>
+<li>Globus Connect Pesonal actively running on your machine. At that point you can proceed as below.</li>
+</ol></li>
+<li>Savio’s endpoint is named <code>ucb#brc</code>.</li>
+</ul>
+<h1 id="data-transfer-for-larger-files-globus-setup">Data transfer for larger files: Globus, Setup</h1>
+<ul>
+<li>To transfer files, you open Globus at <a href="https://globus.org">globus.org</a> and authenticate to the endpoints you want to transfer between.
+<ul>
+<li>This means that you only need to authenticate once, whereas you might need to authenticate multiple times with scp and sftp.</li>
+<li>You can then start a transfer and it will proceed in the background, including restarting if interrupted.</li>
+</ul></li>
+<li>Globus also provides a <a href="https://docs.globus.org/cli/">command line interface</a> that will allow you to do transfers programmatically
+<ul>
+<li>Thus a transfer could be embedded in a workflow script.</li>
+</ul></li>
+</ul>
+<h1 id="data-transfer-box-bdrive">Data transfer: Box &amp; bDrive</h1>
+<ul>
+<li>Box and bDrive (the Cal branded Google Drive) both provide free, secured, and encrypted content storage of files to Berkeley affiliates
+<ul>
+<li>bDrive provides unlimited storage (for now), Box is currently also available
+<ul>
+<li>bDrive has a maximum file size of 5Tb, Box has a maximum file size of 15 Gb</li>
+<li>They are both good options for backup and long-term storage
+<ul>
+<li>However, since the UC Berkeley contract with Box ends in 2023 we suggest new users opt for bDrive</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>You can interact with both services via web browser, and both services provide a desktop app you can use to move and sync files between your computer and the cloud.
+<ul>
+<li><a href="http://bdrive.berkeley.edu/">bDrive web app</a></li>
+<li><a href="https://www.google.com/drive/download/">Drive desktop app</a></li>
+<li><a href="http://box.berkeley.edu">Box web app</a></li>
+<li><a href="https://www.box.com/resources/downloads">Box desktop app</a></li>
+</ul></li>
+<li>BRC is working on making Globus available for transfer to/from Box and bDrive
+<ul>
+<li>We hope this will be available in the near future</li>
+</ul></li>
+</ul>
+<p>For more ambitious users, Box has a Python-based SDK that can be used to write scripts for file transfers. For more information on how to do this, check out the <code>BoxAuthenticationBootstrap.ipynb</code> and <code>TransferFilesFromBoxToSavioScratch.ipynb</code> from BRC’s cyberinfrastructure engineer on <a href="https://github.com/ucberkeley/brc-cyberinfrastructure/tree/dev/analysis-workflows/notebooks">GitHub</a></p>
+<h1 id="data-transfer-box-bdrive-with-rclone-setup">Data transfer: Box &amp; bDrive with rclone setup</h1>
+<p><a href="https://rclone.org/"><em>rclone</em></a> is a command line program that you can use to sync files between both services and Savio. You can read instructions for using rclone on Savio <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/transferring-data/rclone-box-bdrive/">with Box or bDrive here</a>.</p>
+<p>Briefly the steps to set up <em>rclone</em> on Savio to interact with Box are as follows:</p>
+<ul>
+<li>Configuration (on dtn): <code>rclone config</code></li>
+<li>Use auto config? -&gt; n</li>
+<li>For Box: install rclone on your PC, then run <code>rclone authorize &quot;box&quot;</code></li>
+<li>Paste the link into your browser and log in to your CalNet account</li>
+<li>Copy the authentication token and paste into the <code>rclone config</code> prompt on Savio</li>
+</ul>
+<p>Finally you can set up <a href="https://calnetweb.berkeley.edu/calnet-departments/special-purpose-accounts-spa">special purpose accounts</a> so files are owned at a project level rather than by individuals.</p>
+<h1 id="data-transfer-box-bdrive-with-rclone-practice">Data transfer: Box &amp; bDrive with rclone practice</h1>
+<p><em>rclone</em> basics:</p>
+<ul>
+<li>Switch to DTN before using if on login node
+<ul>
+<li>Use command <code>ssh dtn</code></li>
+<li>If using <em>rclone</em> on another node You need to load <em>rclone</em> before use
+<ul>
+<li>Run command <code>module load rclone</code></li>
+</ul></li>
+</ul></li>
+<li>All <em>rclone</em> commands begin with <code>rclone</code> and are then followed by a commands
+<ul>
+<li>The commands are different from bash (i.e., <code>cp</code> in <em>bash</em> vs. <code>copy</code> in rclone)</li>
+</ul></li>
+<li>To reference a file on the remote you add configured remote name followed by a colon followed by the file path
+<ul>
+<li>For example <code>clint_bdrive:project_folder</code></li>
+<li>To access the main folder leave nothing after the colon (e.g., <code>clint_bdrive:</code>)</li>
+</ul></li>
+<li>For more tips and tricks see <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/transferring-data/rclone-box-bdrive/">our docs</a></li>
+</ul>
+<p><em>rclone</em> example:</p>
+<pre><code>rclone listremotes # Lists configured remotes.
+rclone lsd remote_name: # Lists directories, but not files. Note the trailing colon.
+rclone size remote_name:home # Prints size and number of objects in remote &quot;home&quot; directory. This can take a very long time when tallying Tbs of files.
+rclone copy /global/home/users/hannsode remote_name:savio_home/hannsode # Copies my entire home directory to a new directory on the remote.
+rclone copy /global/scratch/hannsode/genomes remote_name:genome_sequences # Copies entire directory contents to a dirctory on the remote with a new name.</code></pre>
 <h1 id="software-modules">Software modules</h1>
 <p>A lot of software is available on Savio but needs to be loaded from the relevant software module before you can use it. (We do this not to confuse you but to avoid clashes between incompatible software and allow multiple versions of a piece of software to co-exist on the system.)</p>
 <pre><code>module list  # what&#39;s loaded?
@@ -481,7 +684,7 @@ sinfo -p savio2_gpu</code></pre>
 <p>You can cancel a job with <code>scancel</code>.</p>
 <pre><code>scancel &lt;YOUR_JOB_ID&gt;</code></pre>
 <p>For more information on cores, QoS, and additional (e.g., GPU) resources, here’s some syntax:</p>
-<pre><code>squeue -o &quot;%.7i %.12P %.20j %.8u %.2t %.9M %.5C %.8r %.3D %.20R %.8p %.20q %b&quot; </code></pre>
+<pre><code>squeue -o &quot;%.7i %.12P %.20j %.8u %.2t %.9M %.5C %.8r %.3D %.20R %.8p %.20q %b&quot;</code></pre>
 <p>We provide some <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/monitoring-jobs/">tips about monitoring your jobs</a>.</p>
 <p>If you’d like to see how much of an FCA has been used:</p>
 <pre><code>check_usage.sh -a fc_cuore</code></pre>
@@ -555,7 +758,7 @@ Recent jobs (most recent job first):
 # install Python package
 module unload python
 module load python/3.6
-# the version of 
+# the system version of statsmodels isn&#39;t recent enough
 pip install --user statsmodels --upgrade</code></pre>
 <p>Now we’ll start up an interactive session, though often this sort of thing would be done via a batch job.</p>
 <pre><code>srun -A fc_brownlab -p savio2 --nodes=2 --ntasks-per-node=24 -t 30:0 --pty bash</code></pre>
@@ -577,8 +780,8 @@ ipython</code></pre>
 c = Client()
 c.ids
 
-dview = c[:]
-dview.block = True
+dview = c[:] # use all engines
+dview.block = True # wait for the result before returning
 dview.apply(lambda : &quot;Hello, World&quot;)
 
 lview = c.load_balanced_view()
@@ -604,6 +807,8 @@ dview.push(mydict)
 def f(id):
     sub = dat2.loc[dat2.Dest == dests[id],:]
     sub = sm.add_constant(sub)
+    if not &#39;const&#39; in sub.columns:
+        return None
     model = sm.OLS(sub.DepDelay, sub.reindex(columns=[&#39;const&#39;,&#39;Year&#39;]))
     results = model.fit()
     return results.params
@@ -623,10 +828,10 @@ parallel_result</code></pre>
 <p>Let’s see a basic example of doing an analysis in R across multiple cores on multiple nodes. We’ll use the airline departure data in <em>bayArea.csv</em>.</p>
 <p>We’ll do this interactively though often this sort of thing would be done via a batch job.</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="co"># remember to do I/O off scratch</span></a>
-<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="fu">cp</span> bayArea.csv /global/scratch/paciorek/.</a>
+<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="fu">cp</span> bayArea.csv /global/scratch/jpduncan/.</a>
 <a class="sourceLine" id="cb37-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb37-4" data-line-number="4"><span class="ex">srun</span> -A co_stat -p savio2  --nodes=2 --ntasks-per-node=24 -t 30:0 --pty bash</a>
-<a class="sourceLine" id="cb37-5" data-line-number="5"><span class="ex">module</span> load r r-packages </a>
+<a class="sourceLine" id="cb37-5" data-line-number="5"><span class="ex">module</span> load r r-packages</a>
 <a class="sourceLine" id="cb37-6" data-line-number="6"><span class="ex">mpirun</span> R CMD BATCH --no-save parallel-multi.R parallel-multi.Rout <span class="kw">&amp;</span></a></code></pre></div>
 <p>Now here’s the R code (see <em>parallel-multi.R</em>) we’re running:</p>
 <pre><code>library(doMPI)
@@ -635,7 +840,7 @@ cl = startMPIcluster()  # by default will start one fewer worker, using one for 
 registerDoMPI(cl)
 clusterSize(cl) # just to check
 
-dat &lt;- read.csv(&#39;/global/scratch/paciorek/bayArea.csv&#39;, header = FALSE,
+dat &lt;- read.csv(&#39;/global/scratch/jpduncan/bayArea.csv&#39;, header = FALSE,
                 stringsAsFactors = FALSE)
 names(dat)[16:18] &lt;- c(&#39;delay&#39;, &#39;origin&#39;, &#39;dest&#39;)
 table(dat$dest)
@@ -666,7 +871,7 @@ R CMD BATCH --no-save parallel-one.R parallel-one.Rout &amp;</code></pre>
 nCores &lt;- Sys.getenv(&#39;SLURM_CPUS_ON_NODE&#39;)
 registerDoParallel(nCores)
 
-dat &lt;- read.csv(&#39;/global/scratch/paciorek/bayArea.csv&#39;, header = FALSE,
+dat &lt;- read.csv(&#39;/global/scratch/jpduncan/bayArea.csv&#39;, header = FALSE,
                 stringsAsFactors = FALSE)
 names(dat)[16:18] &lt;- c(&#39;delay&#39;, &#39;origin&#39;, &#39;dest&#39;)
 table(dat$dest)
