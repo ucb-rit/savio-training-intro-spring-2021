@@ -1,4 +1,4 @@
-# savio-training-intro-spring-2020
+# savio-training-intro-spring-2021
 
 Materials for Savio introductory training for February 11, 2021. 
 
@@ -16,4 +16,3 @@ Participants not familiar with operating in a UNIX-style command-line shell envi
 
 - https://github.com/berkeley-scf/tutorial-unix-basics
 - https://swcarpentry.github.io/shell-novice
-

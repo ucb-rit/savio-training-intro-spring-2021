@@ -2,6 +2,19 @@
 % February 11, 2021
 % Clint Hamilton, James Duncan and Chris Paciorek
 
+# Upcoming events and hiring
+
+ - Lots of other events at Berkeley this week during [Love Data Week](https://researchdata.berkeley.edu/events/love-data-week-2021).
+ 
+ - [Cloud Computing Meetup](https://www.meetup.com/ucberkeley_cloudmeetup/) (monthly) 
+
+ - [Women in Data Science Berkeley](https://www.ischool.berkeley.edu/events/2021/wids-berkeley)  (March 8-12, 2021)
+ 
+ - Looking for researchers working with sensitive data as we are building tools and services to support that work. Get in touch for more information. 
+
+ - [Securing Research Data Working Group](https://dlab.berkeley.edu/working-groups/securing-research-data-working-group) (monthly)
+
+ - Research IT is hiring graduate students as domain consultants. See flyers or talk to one of us.
 
 # Introduction
 
@@ -10,14 +23,6 @@ We'll do this mostly as a demonstration. We encourage you to login to your accou
 Much of this material is based on the extensive Savio documention we have prepared and continue to prepare, available at [https://docs-research-it.berkeley.edu/services/high-performance-computing/](https://docs-research-it.berkeley.edu/services/high-performance-computing/).
 
 The materials for this tutorial are available using git at the short URL ([tinyurl.com/brc-feb21](https://tinyurl.com/brc-feb21)), the  GitHub URL ([https://github.com/ucb-rit/savio-training-intro-spring-2021](https://github.com/ucb-rit/savio-training-intro-spring-2021)), or simply as a [zip file](https://github.com/ucb-rit/savio-training-intro-spring-2021/archive/main.zip).
-
-# Upcoming events and hiring
-
- - Lots of other events at Berkeley this week during [Love Data Week](https://researchdata.berkeley.edu/events/love-data-week-2021).
- 
- - We're planning a training on basic principles of and use of parallelization on Savio and similar systems for sometime in April.
-
- - Research IT is hiring graduate students as domain consultants. See flyers or talk to one of us.
 
 # Outline
 
@@ -309,12 +314,12 @@ The basic workflow is:
 
 # Submitting jobs: accounts and partitions
 
-When submitting a job, the main things you need to indicate are the project account you are using and the partition. Note that their is a default value for the project account, but if you have access to multiple accounts such as an FCA and a condo, it's good practice to specify it.
+When submitting a job, the main things you need to indicate are the project account you are using and the partition. Note that there is a default value for the project account, but if you have access to multiple accounts such as an FCA and a condo, it's good practice to specify it.
 
 You can see what accounts you have access to and which partitions within those accounts as follows:
 
 ```
-sacctmgr -p show associations user=SAVIO_USERNAME
+sacctmgr -p show associations user=$USER
 ```
 
 Here's an example of the output for a user who has access to an FCA, a condo, and a special partner account:
@@ -338,9 +343,9 @@ brc|fc_paciorek|paciorek|savio|1||||||||||||savio_debug,savio_normal|savio_norma
 brc|fc_paciorek|paciorek|savio_bigmem|1||||||||||||savio_debug,savio_normal|savio_normal||
 ```
 
-If you are part of a condo, you'll notice that you have *low-priority* access to certain partitions. For example I am part of the statistics condo *co_stat*, which owns some savio2 nodes and savio2_gpu nodes and therefore I have normal access to those, but I can also burst beyond the condo and use other partitions at low-priority (see below).
+If you are part of a condo, you'll notice that you have *low-priority* access to certain partitions. For example, Chris is part of the statistics condo *co_stat*, which owns some savio2 nodes and savio2_gpu nodes and therefore has normal access to those, but he can also burst beyond the condo and use other partitions at low-priority (see below).
 
-In contrast, through my FCA, I have access to the savio, savio2, big memory, HTC, and GPU partitions all at normal priority.
+In contrast, through his FCA, he has access to the savio, savio2, big memory, HTC, and GPU partitions all at normal priority.
 
 # Submitting a batch job
 
@@ -355,7 +360,7 @@ Here's an example job script that I'll run. You'll need to modify the --account 
 #SBATCH --job-name=test
 #
 # Account:
-#SBATCH --account=co_stat
+#SBATCH --account=fc_brownlab
 #
 # Partition:
 #SBATCH --partition=savio2
@@ -455,9 +460,12 @@ There are lots more examples of job submission scripts for different kinds of pa
 You can also do work interactively. This simply moves you from a login node to a compute node.
 
 ```
-srun -A co_stat -p savio2  --nodes=1 -t 10:0 --pty bash
+srun -A fc_brownlab -p savio2  --nodes=1 -t 10:0 --pty bash
+
 # note that you end up in the same working directory as when you submitted the job
+
 # now execute on the compute node:
+env | grep SLURM
 module load matlab
 matlab -nodesktop -nodisplay
 ```
@@ -484,21 +492,35 @@ First I'll see if there are that many nodes even available.
 ```
 sinfo -p savio2
 srun -A co_stat -p savio2 --qos=savio_lowprio --nodes=20 -t 10:00 --pty bash
+
 ## now look at environment variables to see my job can access 20 nodes:
 env | grep SLURM
 ```
 
 # HTC jobs (and long-running jobs)
 
-There is a partition called the HTC partition that allows you to request cores individually rather than an entire node at a time. The nodes in this partition are faster than the other nodes.
+There is a partition called the HTC partition that allows you to request cores individually rather than an entire node at a time. The nodes in this partition are faster than the other nodes. Here is an example SLURM script:
 
 ```
-srun -A co_stat -p savio2_htc --cpus-per-task=2 -t 10:00 --pty bash
-## we can look at environment variables to verify our two cores
-env | grep SLURM
+#!/bin/bash
+# Job name:
+#SBATCH --job-name=test
+#
+# Account:
+#SBATCH --account=account_name
+#
+# Partition:
+#SBATCH --partition=savio2_htc
+#
+# Processors per task:
+#SBATCH --cpus-per-task=2
+#
+# Wall clock limit -- 10 minutes
+#SBATCH --time=00:10:00
+#
+## Command(s) to run (example):
 module load python
-python calc.py >& calc.out &
-top
+python calc.py >& calc.out
 ```
 
 One can run jobs up to 10 days (using four or fewer cores) in this partition if you include `--qos=savio_long`.
@@ -509,7 +531,7 @@ You may have many serial jobs to run. It may be more cost-effective to collect t
 
 Here are some options:
 
-  - using [GNU parallel](http://research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/gnu-parallel) to run many computational tasks (e.g., thousands of simulations, scanning tens of thousands of parameter values, etc.) as part of single Savio job submission
+  - using [GNU parallel](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/gnu-parallel/) to run many computational tasks (e.g., thousands of simulations, scanning tens of thousands of parameter values, etc.) as part of single Savio job submission
   - using [single-node parallelism](https://github.com/berkeley-scf/tutorial-parallel-basics) and [multiple-node parallelism](https://github.com/berkeley-scf/tutorial-parallel-distributed) in Python, R, and MATLAB
     - parallel R tools such as *future*, *foreach*, *parLapply*, and *mclapply*
     - parallel Python tools such as  *ipyparallel*, *Dask*, and *ray*
@@ -520,7 +542,7 @@ Here are some options:
 The basic command for seeing what is running on the system is `squeue`:
 ```
 squeue
-squeue -u SAVIO_USERNAME
+squeue -u $USER
 squeue -A co_stat
 ```
 
@@ -532,7 +554,7 @@ sinfo -p savio2_gpu
 
 You can cancel a job with `scancel`.
 ```
-scancel YOUR_JOB_ID
+scancel <YOUR_JOB_ID>
 ```
 
 For more information on cores, QoS, and additional (e.g., GPU) resources, here's some syntax:
@@ -540,13 +562,86 @@ For more information on cores, QoS, and additional (e.g., GPU) resources, here's
 squeue -o "%.7i %.12P %.20j %.8u %.2t %.9M %.5C %.8r %.3D %.20R %.8p %.20q %b" 
 ```
 
-We provide some [tips about monitoring your jobs](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/monitoring-jobs/). 
+We provide some [tips about monitoring your jobs](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/monitoring-jobs/).
 
 If you'd like to see how much of an FCA has been used:
 
 ```
 check_usage.sh -a fc_cuore
 ```
+
+# When will my job start?
+
+The new `sq` tool on Savio provides a bit more user-friendly way to understand why your job isn't running yet. Here's the basic usage:
+```
+# should be loaded by default, but if it isn't:
+module load sq
+sq
+```
+
+```
+Showing results for user jpduncan
+Currently 0 running jobs and 1 pending job (most recent job first):
++---------|------|-------------|-----------|--------------|------|---------|-----------+
+| Job ID  | Name |   Account   |   Nodes   |     QOS      | Time |  State  |  Reason   |
++---------|------|-------------|-----------|--------------|------|---------|-----------+
+| 7510375 | test | fc_brownlab | 1x savio2 | savio_normal | 0:00 | PENDING | Resources |
++---------|------|-------------|-----------|--------------|------|---------|-----------+
+
+7510375:
+This job is scheduled to run after 21 higher priority jobs.
+    Estimated start time: N/A
+    To get scheduled sooner, you can try reducing wall clock time as appropriate.
+
+Recent jobs (most recent job first):
++---------|------|-------------|-----------|----------|---------------------|-----------+
+| Job ID  | Name |   Account   |   Nodes   | Elapsed  |         End         |   State   |
++---------|------|-------------|-----------|----------|---------------------|-----------+
+| 7509474 | test | fc_brownlab | 1x savio2 | 00:00:16 | 2021-02-09 23:47:45 | COMPLETED |
++---------|------|-------------|-----------|----------|---------------------|-----------+
+
+7509474:
+ - This job ran for a very short amount of time (0:00:16). You may want to check that the output was correct or if it exited because of a problem.
+ ```
+ 
+To see another user's jobs:
+
+```
+sq -u paciorek
+```
+
+The `-a` flag shows current and past jobs together, the `-q` flag suppresses messages about job issues, and the `-n` flag sets the limit on the number of jobs to show in the output (default = 8).
+
+```
+sq -u paciorek -aq -n 10
+```
+
+```
+Showing results for user paciorek
+Recent jobs (most recent job first):
++-----------|------|-------------|-----------|------------|---------------------|-----------+
+|  Job ID   | Name |   Account   |   Nodes   |  Elapsed   |         End         |   State   |
++-----------|------|-------------|-----------|------------|---------------------|-----------+
+| 7487633.1 | ray  |   co_stat   |    1x     | 1-20:19:03 |       Unknown       |  RUNNING  |
+| 7487633.0 | ray  |   co_stat   |    1x     | 1-20:19:08 |       Unknown       |  RUNNING  |
+|  7487633  | test |   co_stat   | 2x savio2 | 1-20:19:12 |       Unknown       |  RUNNING  |
+|  7487879  | bash | ac_scsguest | 1x savio  |  00:00:27  | 2021-02-08 14:54:19 | COMPLETED |
+| 7487633.2 | bash |   co_stat   |    2x     |  00:00:34  | 2021-02-08 14:53:38 |  FAILED   |
+|  7487515  | test |   co_stat   | 2x savio2 |  00:04:53  | 2021-02-08 14:22:17 | CANCELLED |
+| 7487515.1 | ray  |   co_stat   |    1x     |  00:00:06  | 2021-02-08 14:17:39 |  FAILED   |
+| 7487515.0 | ray  |   co_stat   |    1x     |  00:00:05  | 2021-02-08 14:17:33 |  FAILED   |
+|  7473988  | test |   co_stat   | 2x savio2 | 3-00:00:16 | 2021-02-08 13:33:40 |  TIMEOUT  |
+|  7473989  | test | ac_scsguest | 2x savio  | 2-22:30:11 | 2021-02-08 11:47:54 | CANCELLED |
++-----------|------|-------------|-----------|------------|---------------------|-----------+
+```
+
+For help with `sq`:
+
+```
+sq -h
+```
+
+To learn more, see our page on understanding [when your jobs will run](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/why-job-not-run/).
 
 
 # Example use of standard software: Jupyter Notebooks through Open OnDemand (OOD)
@@ -555,7 +650,7 @@ Savio now has an Open OnDemand portal, allowing users to launch Jupyter notebook
 
 Let's see a brief demo of a Jupyter notebook:
 
- - Connect to https://ood.brc.berkeley.edu/
+ - Connect to [ood.brc.berkeley.edu](https://ood.brc.berkeley.edu)
  - Login as usual with a one-time password
  - Click on the "Interactive Apps" drop-down menu and select how to run your notebook (either "compute in batch queues" or "non-batch for exploration, debugging")
  - Specify your "SLURM Project/Account Name"
@@ -571,20 +666,21 @@ Let's see a basic example of doing an analysis in Python across multiple cores o
 
 Here we'll use *IPython* for parallel computing. The example is a bit contrived in that a lot of the time is spent moving data around rather than doing computation, but it should illustrate how to do a few things.
 
-First we'll install a Python package (pretending it is not already available via the basic python/3.6 module).
+First we'll user-install a Python package called `statsmodels` to get a more recent version:
 
 ```
-cp bayArea.csv /global/scratch/paciorek/.  # remember to do I/O off scratch
+cp bayArea.csv /global/scratch/jpduncan/.  # remember to do I/O off scratch
 # install Python package
 module unload python
 module load python/3.6
-pip install --user statsmodels
+# the system version of statsmodels isn't recent enough
+pip install --user statsmodels --upgrade
 ```
 
 Now we'll start up an interactive session, though often this sort of thing would be done via a batch job.
 
 ```
-srun -A co_stat -p savio2 --nodes=2 --ntasks-per-node=24 -t 30:0 --pty bash
+srun -A fc_brownlab -p savio2 --nodes=2 --ntasks-per-node=24 -t 30:0 --pty bash
 ```
 
 Now we'll start up a cluster using IPython's parallel tools. To do this across multiple nodes within a SLURM job, it goes like this:
@@ -596,7 +692,7 @@ sleep 30
 ## The next line starts one worker per SLURM task (which should equal the number of cores)
 srun ipengine &
 sleep 45  # wait until all engines have successfully started
-cd /global/scratch/paciorek
+cd /global/scratch/jpduncan
 ipython
 ```
 
@@ -615,8 +711,8 @@ from ipyparallel import Client
 c = Client()
 c.ids
 
-dview = c[:]
-dview.block = True
+dview = c[:] # use all engines
+dview.block = True # wait for the result before returning
 dview.apply(lambda : "Hello, World")
 
 lview = c.load_balanced_view()
@@ -633,7 +729,7 @@ dat.columns = ('Year','Month','DayofMonth','DayOfWeek','DepTime',
 
 dview.execute('import statsmodels.api as sm')
 
-dat2 = dat.loc[:, ('DepDelay','Year','Dest','Origin')]
+dat2 = dat.reindex(columns = ['DepDelay','Year','Dest','Origin'])
 dests = dat2.Dest.unique()
 
 mydict = dict(dat2 = dat2, dests = dests)
@@ -642,7 +738,9 @@ dview.push(mydict)
 def f(id):
     sub = dat2.loc[dat2.Dest == dests[id],:]
     sub = sm.add_constant(sub)
-    model = sm.OLS(sub.DepDelay, sub.loc[:,('const','Year')])
+    if not 'const' in sub.columns:
+        return None
+    model = sm.OLS(sub.DepDelay, sub.reindex(columns=['const','Year']))
     results = model.fit()
     return results.params
 
@@ -671,7 +769,7 @@ We'll do this interactively though often this sort of thing would be done via a 
 
 ```bash
 # remember to do I/O off scratch
-cp bayArea.csv /global/scratch/paciorek/.
+cp bayArea.csv /global/scratch/jpduncan/.
 
 srun -A co_stat -p savio2  --nodes=2 --ntasks-per-node=24 -t 30:0 --pty bash
 module load r r-packages 
@@ -687,7 +785,7 @@ cl = startMPIcluster()  # by default will start one fewer worker, using one for 
 registerDoMPI(cl)
 clusterSize(cl) # just to check
 
-dat <- read.csv('/global/scratch/paciorek/bayArea.csv', header = FALSE,
+dat <- read.csv('/global/scratch/jpduncan/bayArea.csv', header = FALSE,
                 stringsAsFactors = FALSE)
 names(dat)[16:18] <- c('delay', 'origin', 'dest')
 table(dat$dest)
@@ -725,7 +823,7 @@ library(doParallel)
 nCores <- Sys.getenv('SLURM_CPUS_ON_NODE')
 registerDoParallel(nCores)
 
-dat <- read.csv('/global/scratch/paciorek/bayArea.csv', header = FALSE,
+dat <- read.csv('/global/scratch/jpduncan/bayArea.csv', header = FALSE,
                 stringsAsFactors = FALSE)
 names(dat)[16:18] <- c('delay', 'origin', 'dest')
 table(dat$dest)
